@@ -121,9 +121,10 @@ public class EventManager {
      * @param dateStart Start date
      * @param dateEnd   End date (can be null)
      * @param organizer User organizing the event
+     * @param team the team assigned to this event
      * @return The newly created event
      */
-    public Event createEvent(String name, Date dateStart, Date dateEnd, User chef) {
+    public Event createEvent(String name, Date dateStart, Date dateEnd, User chef, Team team) {
         try {
             LOGGER.info("Creating new event '" + name + "' with chef " + chef.getUserName());
 
@@ -132,7 +133,7 @@ public class EventManager {
             event.setDateStart(dateStart);
             event.setDateEnd(dateEnd);
             event.setChef(chef);
-
+            
             // Save to database
             event.saveNewEvent();
 

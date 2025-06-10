@@ -23,6 +23,7 @@ public class Event {
     private Date dateStart;
     private Date dateEnd;
     private User chef;
+    private Team team;
     private ArrayList<Service> services;
 
     public Event() {
@@ -111,6 +112,8 @@ public class Event {
         }
         return false;
     }
+
+    
 
     // Database operations
     public void saveNewEvent() {
@@ -237,5 +240,13 @@ public class Event {
     public String toString() {
         return "Event [id=" + id + ", name=" + name + ", dateStart=" + dateStart +
                 ", services=" + (services != null ? services.size() : 0) + "]";
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
