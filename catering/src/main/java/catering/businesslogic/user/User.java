@@ -29,6 +29,10 @@ public class User {
         this.roles = new HashSet<>();
     }
 
+    public boolean isOrganizer(){
+        return roles.contains(Role.ORGANIZZATORE);
+    }
+
     public boolean isCook() {
         return roles.contains(Role.CUOCO);
     }

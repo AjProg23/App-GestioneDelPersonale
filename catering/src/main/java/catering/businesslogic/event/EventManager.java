@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.menu.Menu;
+import catering.businesslogic.staff.Team;
 import catering.businesslogic.user.User;
 import catering.util.LogManager;
 
@@ -24,6 +25,9 @@ public class EventManager {
     private ArrayList<EventReceiver> eventReceivers;
     private Event selectedEvent;
     private Service currentService;
+    private Event currentEvent;
+
+    
 
     /**
      * Constructor initializes the event receivers list
@@ -115,6 +119,26 @@ public class EventManager {
     }
 
     /**
+     * Gets the current event
+     * 
+     * @return Selected currentEvent or null if none curently
+     */
+    public Event getCurrentEvent() {
+        return currentEvent;
+    }
+
+    /**
+     * Sets the current event
+     * 
+     * @param the currentEvent Event 
+     */
+    public void setCurrentEvent(Event currentEvent) {
+        this.currentEvent = currentEvent;
+    }
+
+
+
+    /**
      * Creates a new event with the given details
      * 
      * @param name      Event name
@@ -142,6 +166,7 @@ public class EventManager {
             this.currentService = null;
 
             // Notify all receivers
+            setCurrentEvent(event);
             notifyEventCreated(event);
 
             return event;
