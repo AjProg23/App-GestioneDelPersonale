@@ -5,6 +5,8 @@ import catering.businesslogic.kitchen.KitchenTaskManager;
 import catering.businesslogic.menu.MenuManager;
 import catering.businesslogic.recipe.RecipeManager;
 import catering.businesslogic.shift.ShiftManager;
+import catering.businesslogic.staff.StaffMemberManager;
+import catering.businesslogic.staff.TeamManager;
 import catering.businesslogic.user.UserManager;
 import catering.persistence.KitchenTaskPersistence;
 import catering.persistence.MenuPersistence;
@@ -25,6 +27,8 @@ public class CatERing {
     private EventManager eventMgr;
     private KitchenTaskManager kitchenTaskMgr;
     private ShiftManager shiftMgr;
+    private StaffMemberManager staffMemberManager;
+    private TeamManager teamManager;
 
     private MenuPersistence menuPersistence;
     private KitchenTaskPersistence kitchenTaskPersistence;
@@ -36,9 +40,11 @@ public class CatERing {
         eventMgr = new EventManager();
         kitchenTaskMgr = new KitchenTaskManager();
         shiftMgr = new ShiftManager(); // Add this line to initialize ShiftManager
-
+        staffMemberManager= new StaffMemberManager();
         menuPersistence = new MenuPersistence();
         kitchenTaskPersistence = new KitchenTaskPersistence();
+        teamManager=new TeamManager();
+
 
         menuMgr.addEventReceiver(menuPersistence);
         kitchenTaskMgr.addEventReceiver(kitchenTaskPersistence);
@@ -107,5 +113,39 @@ public class CatERing {
     public void setKitchenTaskManager(KitchenTaskManager kitchenTaskMgr) {
         this.kitchenTaskMgr = kitchenTaskMgr;
     }
+
+    public StaffMemberManager getStaffMemberManager() {
+        return staffMemberManager;
+    }
+
+    public void setStaffMemberManager(StaffMemberManager staffMemberManager) {
+        this.staffMemberManager = staffMemberManager;
+    }
+
+    public TeamManager getTeamManager() {
+        return teamManager;
+    }
+
+    public void setTeamManager(TeamManager teamManager) {
+        this.teamManager = teamManager;
+    }
+
+    public MenuPersistence getMenuPersistence() {
+        return menuPersistence;
+    }
+
+    public void setMenuPersistence(MenuPersistence menuPersistence) {
+        this.menuPersistence = menuPersistence;
+    }
+
+    public KitchenTaskPersistence getKitchenTaskPersistence() {
+        return kitchenTaskPersistence;
+    }
+
+    public void setKitchenTaskPersistence(KitchenTaskPersistence kitchenTaskPersistence) {
+        this.kitchenTaskPersistence = kitchenTaskPersistence;
+    }
+
+    
 
 }

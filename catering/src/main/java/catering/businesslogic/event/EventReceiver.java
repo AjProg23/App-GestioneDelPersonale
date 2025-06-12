@@ -23,4 +23,6 @@ public interface EventReceiver {
     void updateMenuAssigned(Service service, Menu menu);
 
     void updateMenuRemoved(Service service);
+
+    
 }

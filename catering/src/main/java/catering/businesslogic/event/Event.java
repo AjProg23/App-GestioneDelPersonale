@@ -25,6 +25,7 @@ public class Event {
     private Date dateEnd;
     private User chef;
     private Team team;
+    private SummaryScheme summaryScheme;
     private ArrayList<Service> services;
 
     public Event() {
@@ -249,5 +250,13 @@ public class Event {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public SummaryScheme getSummaryScheme() {
+        return summaryScheme;
+    }
+
+    public void setSummaryScheme(SummaryScheme summaryScheme) {
+        this.summaryScheme = summaryScheme;
     }
 }

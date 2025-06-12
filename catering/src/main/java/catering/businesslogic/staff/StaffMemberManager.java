@@ -32,9 +32,16 @@ public class StaffMemberManager {
         this.currentStaffMember=sm;
     }
 
+    public StaffMember getCurrentStaffMember() {
+        return currentStaffMember;
+    }
+    
+    
     private void notifyStaffMemberCreated(StaffMember sm) {
         for (StaffMemberReceiver smr : this.staffMemberReceivers) {
             smr.updateStaffMemberCreated(sm);
         }
     }
+
+    
 }

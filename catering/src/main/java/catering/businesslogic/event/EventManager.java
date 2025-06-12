@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.menu.Menu;
+import catering.businesslogic.staff.StaffMember;
 import catering.businesslogic.staff.Team;
 import catering.businesslogic.user.User;
 import catering.util.LogManager;
@@ -21,7 +23,6 @@ import catering.util.LogManager;
 public class EventManager {
 
     private static final Logger LOGGER = LogManager.getLogger(EventManager.class);
-
     private ArrayList<EventReceiver> eventReceivers;
     private Event selectedEvent;
     private Service currentService;
@@ -175,6 +176,15 @@ public class EventManager {
             return null;
         }
     }
+    
+    public Event createEvent(User u) throws UseCaseLogicException {
+        System.out.println("L'utente è un organizzatore, può creare l'evento.");
+        ArrayList<StaffMember> staffMembers= new ArrayList<>();
+        StaffMember st= CatERing.getInstance().getStaffMemberManager().createStaffMember();
+        staffMembers.add(st);
+        Team t= CatERing.getInstance().getTeamManager().createTeam(staffMembers);
+        return this.createEvent("nome", null, null, u, t);
+    }
 
     public void selectEvent(Event event) {
         LOGGER.info("Selecting event '" + event.getName() + "' (ID: " + event.getId() + ")");
@@ -240,6 +250,24 @@ public class EventManager {
             }
         }
     }
+
+    /*add summaryScheme for the Event
+     * @param nrOfStaffMembersRequired          number of staff required for the event
+     * @param transportationNeeds               any trasportation nedded for the event
+     * @param  typeOfService                    type of the service for the event
+     * @param  clientRequest                    any request from the client
+     */
+    public SummaryScheme addSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest){
+        SummaryScheme summaryScheme= new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
+        currentEvent.setSummaryScheme(summaryScheme);
+        return summaryScheme;
+    }
+
+    public SummaryScheme addSummaryScheme(){
+        SummaryScheme summaryScheme=this.addSummaryScheme(15, null, "bartender", null);
+        return summaryScheme;
+    }
+
 
     /**
      * Modifies a service
@@ -481,5 +509,13 @@ public class EventManager {
         for (EventReceiver receiver : eventReceivers) {
             receiver.updateMenuRemoved(service);
         }
+    }
+
+    public ArrayList<EventReceiver> getEventReceivers() {
+        return eventReceivers;
+    }
+
+    public void setEventReceivers(ArrayList<EventReceiver> eventReceivers) {
+        this.eventReceivers = eventReceivers;
     }
 }

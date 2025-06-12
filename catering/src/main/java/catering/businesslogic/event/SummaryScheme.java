@@ -2,17 +2,11 @@ package catering.businesslogic.event;
 
 //aggiunto 
 public class SummaryScheme {
-    private Event e; //evento a cui fa riferimento
     private int nrOfStaffMembersRequired;
     private String transportationNeeds;
     private String typeOfService;
     private String clientRequest;
-    public Event getE() {
-        return e;
-    }
-    public void setE(Event e) {
-        this.e = e;
-    }
+    
     public int getNrOfStaffMembersRequired() {
         return nrOfStaffMembersRequired;
     }
@@ -37,9 +31,8 @@ public class SummaryScheme {
     public void setClientRequest(String clientRequest) {
         this.clientRequest = clientRequest;
     }
-    public SummaryScheme(Event e, int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService,
+    public SummaryScheme( int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService,
             String clientRequest) {
-        this.e = e;
         this.nrOfStaffMembersRequired = nrOfStaffMembersRequired;
         this.transportationNeeds = transportationNeeds;
         this.typeOfService = typeOfService;

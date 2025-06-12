@@ -5,27 +5,19 @@ import java.util.ArrayList;
 import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.event.Event;
-import catering.businesslogic.event.EventManager;
 import catering.businesslogic.event.SummaryScheme;
 import catering.businesslogic.user.User;
-import catering.businesslogic.user.UserManager;
+
 
 //aggiunto 
 public class StaffManager {
     
     private ArrayList<StaffEventReceiver> staffEventReceivers;
     private String[] eventFeatures; 
-    private UserManager userManager;  
-    private EventManager eventManager;
-    private StaffMemberManager staffMemberManager;
-    private TeamManager teamManager;
+    
 
-    public StaffManager(UserManager userManager,EventManager eventManager,StaffMemberManager staffMemberManager, TeamManager teamManager) {
+    public StaffManager() {
         this.staffEventReceivers = new ArrayList<>();
-        this.userManager = userManager;
-        this.eventManager=eventManager;
-        this.staffMemberManager=staffMemberManager;
-        teamManager=teamManager;
     }
 
     public Event CreateEvent() throws UseCaseLogicException{      
@@ -35,16 +27,9 @@ public class StaffManager {
             return null;
         }
 
-         
         if (u.isOrganizer()) {
-            System.out.println("L'utente è un organizzatore, può creare l'evento.");
-            //stostituire queste creazioni di StaffMember con un richiamo alla funzione create StaffMember della classe StaffMemberManager 
-            ArrayList<StaffMember> staffMembers= new ArrayList();
-            StaffMember st=staffMemberManager.createStaffMember();
-            staffMembers.add(st);
-            Team t= teamManager.createTeam(staffMembers);
-            Event e=eventManager.createEvent("nome", null, null, u, t);
-            SummaryScheme summaryScheme= new SummaryScheme(e, 0, null, null, null);
+            Event e=CatERing.getInstance().getEventManager().createEvent(u);
+                                                //SUMMARY SCHEME è UNA COSA CHE UN EVENTO PUO AVERE O NON AVERE QUIDNI QUA NON VIENE FATTO, RIMUOVERE DA DSD (ULTIMO PUNTO MESSAGGIO WHATSAPP DSD1)
             notifyEventCreated(e);
             return e;
         } else {
@@ -55,7 +40,7 @@ public class StaffManager {
     public Event chooseEvent(Event e) throws UseCaseLogicException{
         User u = CatERing.getInstance().getUserManager().getCurrentUser();
         if(u.isOrganizer()){
-            eventManager.setCurrentEvent(e);
+        CatERing.getInstance().getEventManager().setCurrentEvent(e);
         }
         else{
             throw new UseCaseLogicException("L'utente " + u.getUserName() + " non è un organizzatore. Creazione evento negata.");
@@ -65,11 +50,43 @@ public class StaffManager {
 
     // Notification methods to avoid code duplication
     private void notifyEventCreated(Event event) {
-        for (StaffEventReceiver staffEventReceivers : staffEventReceivers) {
-            staffEventReceivers.updateEventCreated(event);
+        for (StaffEventReceiver receiver : staffEventReceivers) {
+            receiver.updateEventCreated(event);
         }
     }
 
+
+    public SummaryScheme creatSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
+        Event currEvent= CatERing.getInstance().getEventManager().getCurrentEvent();
+        if(currEvent==null){
+            throw new UseCaseLogicException("Nessun evento corrente di cui creare il summary scheme");
+        }
+        SummaryScheme ss=CatERing.getInstance().getEventManager().addSummaryScheme();
+        notifySummarySchemeCreated(ss);
+        return ss;
+    }
+
+    private void notifySummarySchemeCreated(SummaryScheme ss) {
+        for(StaffEventReceiver receiver: staffEventReceivers){
+            receiver.updateSummarySchemeCreated(ss);
+        }
+    }
+
+    public ArrayList<StaffEventReceiver> getStaffEventReceivers() {
+        return staffEventReceivers;
+    }
+
+    public void setStaffEventReceivers(ArrayList<StaffEventReceiver> staffEventReceivers) {
+        this.staffEventReceivers = staffEventReceivers;
+    }
+
+    public String[] getEventFeatures() {
+        return eventFeatures;
+    }
+
+    public void setEventFeatures(String[] eventFeatures) {
+        this.eventFeatures = eventFeatures;
+    }
     
 
     

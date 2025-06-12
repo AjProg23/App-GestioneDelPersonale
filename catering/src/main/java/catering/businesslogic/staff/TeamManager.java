@@ -26,11 +26,16 @@ public class TeamManager {
     private void setCurrentTeam(Team t) {
         this.currentTeam=t;
     }
+    public Team getCurrentTeam() {
+        return currentTeam;
+    }
 
     private void notifyTeamCreated(Team t) {
        for (TeamReceiver tr : this.TeamReceivers) {
             tr.updateTeamCreated(t);
         }
     }
+
+    
     
 }
