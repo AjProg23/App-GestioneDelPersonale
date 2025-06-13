@@ -12,6 +12,12 @@ public class TeamManager {
     public TeamManager() {
     }
 
+    /**
+     * Create a Team
+     * 
+     * @param staffMembers          All the Staff Members of the team                
+     * @throws UseCaseLogicException            if the User is not an organizer
+     */
     public Team createTeam(ArrayList<StaffMember> staffMembers) throws UseCaseLogicException{
         User user = CatERing.getInstance().getUserManager().getCurrentUser();
         if(!user.isOrganizer()){
@@ -30,6 +36,12 @@ public class TeamManager {
         return currentTeam;
     }
 
+
+    /**
+     * Notify the TeamrReceivers that a Team had been created
+     * 
+     * @param t          The team created
+     */
     private void notifyTeamCreated(Team t) {
        for (TeamReceiver tr : this.TeamReceivers) {
             tr.updateTeamCreated(t);

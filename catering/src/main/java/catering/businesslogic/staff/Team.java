@@ -2,11 +2,11 @@ package catering.businesslogic.staff;
 
 import java.util.ArrayList;
 
+import catering.businesslogic.UseCaseLogicException;
+
 //aggiunto 
 public class Team {
     private ArrayList<StaffMember> team;
-
-    
     public Team() {
     }
 
@@ -17,7 +17,10 @@ public class Team {
     }
 
 
-
+    /**
+     * Add a new member for this team 
+     * @throws UseCaseLogicException            if no event is selected
+     */
     public void addMember(StaffMember member) {
         if (member != null) {
             team.add(member);

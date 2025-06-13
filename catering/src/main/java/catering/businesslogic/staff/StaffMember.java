@@ -2,24 +2,44 @@ package catering.businesslogic.staff;
 
 //aggiunto 
 
+import java.util.ArrayList;
+
+
 public class StaffMember {
+
+    public static enum Role {
+        Pasticciere, Barista, Magazziniere, Cameriere
+    };
+    
     private int id;
     private String nominativo;
-    private String[] features;
-    private Boolean[] featuresValue;
+    private ArrayList<Role>[] Ruoli;
+     private Boolean permanente;
    
-    public StaffMember(int id, String nominativo, String[] features, Boolean[] featuresValue) {
+    public StaffMember(int id, String nominativo, ArrayList<Role>[] Ruoli,  Boolean permanente) {
+        this.Ruoli = Ruoli;
         this.id = id;
         this.nominativo = nominativo;
-        this.features = features;
-        this.featuresValue = featuresValue;
+        this.permanente = permanente;
     }
 
+    public Boolean getPermanente() {
+        return permanente;
+    }
+
+    public void setPermanente(Boolean permanente) {
+        this.permanente = permanente;
+    }
+    
+   
+   
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    
+
+  public void setId(int id) {
         this.id = id;
     }
 
@@ -31,21 +51,15 @@ public class StaffMember {
         this.nominativo = nominativo;
     }
 
-    public String[] getFeatures() {
-        return features;
+    public ArrayList<Role>[] getRuoli() {
+        return Ruoli;
     }
 
-    public void setFeatures(String[] features) {
-        this.features = features;
+    public void setRuoli(ArrayList<Role>[] ruoli) {
+        Ruoli = ruoli;
     }
 
-    public Boolean[] getFeaturesValue() {
-        return featuresValue;
-    }
-
-    public void setFeaturesValue(Boolean[] featuresValue) {
-        this.featuresValue = featuresValue;
-    }
+   
 
     
 }

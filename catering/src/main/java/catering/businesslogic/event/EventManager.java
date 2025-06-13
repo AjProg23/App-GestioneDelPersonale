@@ -398,6 +398,19 @@ public class EventManager {
             return false;
         }
     }
+    /**
+     * gives the Staff of the current event 
+     * 
+     * @throws UseCaseLogicException if no event is selected
+     */
+    public Team getStaffAvailability()throws UseCaseLogicException{
+        Event currEvent= getCurrentEvent();
+        if(currEvent==null){
+            throw new UseCaseLogicException("Nessun evento corrente di cui creare il summary scheme");
+        }
+        Team t= currEvent.getTeam();
+        return t;
+    }
 
     /**
      * Assigns a menu to the current service
