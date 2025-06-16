@@ -1,10 +1,12 @@
 package catering.businesslogic.staff;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.event.Event;
+import catering.businesslogic.event.Vacation;
 import catering.businesslogic.staff.StaffMember.Role;
 import catering.businesslogic.user.User;
 
@@ -51,6 +53,7 @@ public class StaffMemberManager {
     /**
      * Add a new member for the team of the current event
      * @param  e the event selected 
+     * @return the staffMember added for the event
      */
     public StaffMember addNewMemberForTheEvent(Event e)throws UseCaseLogicException{
         Event currEvent= CatERing.getInstance().getEventManager().getCurrentEvent();
@@ -58,6 +61,27 @@ public class StaffMemberManager {
         currEvent.getTeam().addMember(sm);
         notifyStaffMemberAdded(sm);
         return sm;
+    }
+
+    /**
+     * Offet a permanent job for the Staff Member
+     * @param  sm the staff member selected 
+     * @return the staffMember for the permanent job
+     */
+    public StaffMember offerPermanentJob(StaffMember sm) throws UseCaseLogicException{
+        sm.setPermanente(true);
+        notifyStaffMemberPermanentJob(sm);
+        return sm;
+    }
+
+    /**
+     * Get the vacation requests from the specific staff member
+     * @param  sm the staff member selected 
+     * @return the vacations of the staff member
+     */
+    public List<Vacation> getVacationRequest(StaffMember sm){
+        List<Vacation> vacations=sm.getVacations();
+        return vacations;
     }
 
     
@@ -81,6 +105,17 @@ public class StaffMemberManager {
     private void notifyStaffMemberAdded(StaffMember sm) {
         for (StaffMemberReceiver smr : this.staffMemberReceivers) {
             smr.updateStaffMemberAdded(sm);
+        }
+    }
+
+    /**
+     * Notify the StaffMemberReceiver that a StaffMember took a permanent job
+     * 
+     * @param sm          The staff member for the permanent job
+     */
+    private void notifyStaffMemberPermanentJob(StaffMember sm){
+        for (StaffMemberReceiver smr : this.staffMemberReceivers) {
+            smr.UpdateStaffMemberPermanentJob(sm);
         }
     }
 

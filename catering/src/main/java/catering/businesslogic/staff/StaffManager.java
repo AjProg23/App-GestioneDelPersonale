@@ -1,11 +1,13 @@
 package catering.businesslogic.staff;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.event.Event;
 import catering.businesslogic.event.SummaryScheme;
+import catering.businesslogic.event.Vacation;
 import catering.businesslogic.user.User;
 
 
@@ -104,6 +106,45 @@ public class StaffManager {
         }
         StaffMember member = CatERing.getInstance().getStaffMemberManager().addNewMemberForTheEvent(currEvent);
         return member;
+    }
+
+    /**
+     * Add a new member for the team of the current event
+     * @throws UseCaseLogicException             if there isn't a staff member selected
+     * @throws UseCaseLogicException            if the user is not an organizer
+     */
+    public StaffMember offerPermanentJob() throws UseCaseLogicException{
+        StaffMemberManager smManager= CatERing.getInstance().getStaffMemberManager();
+        StaffMember sm=smManager.getCurrentStaffMember();
+        User u=CatERing.getInstance().getUserManager().getCurrentUser();
+        if (!u.isOrganizer()) {
+            throw new UseCaseLogicException("The User is not an organizer you can't offer a permanent job");
+        }
+        if(sm==null){
+            throw new UseCaseLogicException("Staff member not selected");
+        }
+        smManager.offerPermanentJob(sm);
+        return sm;
+    }
+
+
+    /**
+     * Get every vacation request from a specific staff member
+     * @throws UseCaseLogicException            if there isn't a staff member selected
+     * @throws UseCaseLogicException            if the user is not an organizer
+     */
+    public List<Vacation> getVacationRequest()throws UseCaseLogicException{
+        StaffMemberManager smManager= CatERing.getInstance().getStaffMemberManager();
+        StaffMember sm=smManager.getCurrentStaffMember();
+        User u=CatERing.getInstance().getUserManager().getCurrentUser();
+        if (!u.isOrganizer()) {
+            throw new UseCaseLogicException("The User is not an organizer you can't visualize the vacation request of the staff member");
+        }
+        if(sm==null){
+            throw new UseCaseLogicException("Staff member not selected");
+        }
+        List<Vacation> v= smManager.getVacationRequest(sm);
+        return v;
     }
 
     public ArrayList<StaffEventReceiver> getStaffEventReceivers() {

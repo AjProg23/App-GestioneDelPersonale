@@ -1,12 +1,12 @@
 package catering.businesslogic.staff;
 
-//aggiunto 
-
 import java.util.ArrayList;
+import java.util.List;
 
+import catering.businesslogic.event.Vacation;
 
 public class StaffMember {
-
+    
     public static enum Role {
         Pasticciere, Barista, Magazziniere, Cameriere
     };
@@ -14,7 +14,8 @@ public class StaffMember {
     private int id;
     private String nominativo;
     private ArrayList<Role>[] Ruoli;
-     private Boolean permanente;
+    private Boolean permanente;
+    private List<Vacation> vacations;
    
     public StaffMember(int id, String nominativo, ArrayList<Role>[] Ruoli,  Boolean permanente) {
         this.Ruoli = Ruoli;
@@ -22,6 +23,15 @@ public class StaffMember {
         this.nominativo = nominativo;
         this.permanente = permanente;
     }
+
+    public StaffMember(ArrayList<Role>[] Ruoli, int id, String nominativo, Boolean permanente, List<Vacation> vacations) {
+        this.Ruoli = Ruoli;
+        this.id = id;
+        this.nominativo = nominativo;
+        this.permanente = permanente;
+        this.vacations = vacations;
+    }
+    
 
     public Boolean getPermanente() {
         return permanente;
@@ -59,7 +69,13 @@ public class StaffMember {
         Ruoli = ruoli;
     }
 
-   
+   public List<Vacation> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(List<Vacation> vacations) {
+        this.vacations = vacations;
+    }
 
     
 }
