@@ -260,6 +260,8 @@ public class EventManager {
     public SummaryScheme addSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest){
         SummaryScheme summaryScheme= new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
         currentEvent.setSummaryScheme(summaryScheme);
+        summaryScheme.saveNewSummaryScheme();
+        currentEvent.updateEvent();
         return summaryScheme;
     }
 

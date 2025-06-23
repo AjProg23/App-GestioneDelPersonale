@@ -10,8 +10,6 @@ public class Team {
     public Team() {
     }
 
-    
-    
     public Team(ArrayList<StaffMember> team) {
         this.team = team;
     }
@@ -39,5 +37,6 @@ public class Team {
     public void setTeam(ArrayList<StaffMember> team) {
         this.team = team;
     }
+    
     
 }

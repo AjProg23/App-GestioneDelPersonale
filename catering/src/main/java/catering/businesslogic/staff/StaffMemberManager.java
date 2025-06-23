@@ -7,7 +7,6 @@ import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.event.Event;
 import catering.businesslogic.event.Vacation;
-import catering.businesslogic.staff.StaffMember.Role;
 import catering.businesslogic.user.User;
 
 public class StaffMemberManager {
@@ -17,6 +16,13 @@ public class StaffMemberManager {
     public StaffMemberManager() {
     }
 
+    private void setCurrentStaffMember(StaffMember sm) {
+        this.currentStaffMember=sm;
+    }
+
+    public StaffMember getCurrentStaffMember() {
+        return currentStaffMember;
+    }
     
 
     /**
@@ -28,7 +34,7 @@ public class StaffMemberManager {
      * @param featuresValue                     
      * @throws UseCaseLogicException            if no event is selected
      */
-    public StaffMember createStaffMember(int id, String nominativo, ArrayList<Role>[] ruoli, Boolean permanente) throws UseCaseLogicException{
+    public StaffMember createStaffMember(int id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente) throws UseCaseLogicException{
         User user = CatERing.getInstance().getUserManager().getCurrentUser();
         if(!user.isOrganizer()){
             throw new UseCaseLogicException("L'utente " + user.getUserName() + " non è un organizzatore. Creazione evento negata.");
@@ -36,19 +42,14 @@ public class StaffMemberManager {
         StaffMember sm=new StaffMember(id, nominativo, ruoli,permanente);
         this.setCurrentStaffMember(sm);
         this.notifyStaffMemberCreated(sm);
+        sm.saveNewStaffMember();
         return sm;
     }
     public StaffMember createStaffMember() throws UseCaseLogicException{
         return this.createStaffMember(0, "Mario Rossi",null, true);
     } 
 
-    private void setCurrentStaffMember(StaffMember sm) {
-        this.currentStaffMember=sm;
-    }
-
-    public StaffMember getCurrentStaffMember() {
-        return currentStaffMember;
-    }
+    
 
     /**
      * Add a new member for the team of the current event
@@ -59,6 +60,7 @@ public class StaffMemberManager {
         Event currEvent= CatERing.getInstance().getEventManager().getCurrentEvent();
         StaffMember sm= createStaffMember();
         currEvent.getTeam().addMember(sm);
+        sm.saveNewStaffMember();
         notifyStaffMemberAdded(sm);
         return sm;
     }

@@ -1,7 +1,15 @@
 package catering.businesslogic.event;
 
+import java.util.logging.Logger;
+
+import catering.persistence.PersistenceManager;
+import catering.util.LogManager;
+
 //aggiunto 
 public class SummaryScheme {
+    
+    private static final Logger LOGGER = LogManager.getLogger(SummaryScheme.class);
+    
     private int nrOfStaffMembersRequired;
     private String transportationNeeds;
     private String typeOfService;
@@ -37,6 +45,15 @@ public class SummaryScheme {
         this.transportationNeeds = transportationNeeds;
         this.typeOfService = typeOfService;
         this.clientRequest = clientRequest;
+    }
+
+    // Database operations
+    public void saveNewSummaryScheme() {
+        String query = "INSERT INTO SummaryScheme (nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest) VALUES (?, ?, ?, ?)";
+
+        PersistenceManager.executeUpdate(query, nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
+
+        LOGGER.info("Saved Summary scheme");
     }
 
     

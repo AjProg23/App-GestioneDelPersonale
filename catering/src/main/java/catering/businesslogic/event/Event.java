@@ -119,12 +119,12 @@ public class Event {
 
     // Database operations
     public void saveNewEvent() {
-        String query = "INSERT INTO Events (name, date_start, date_end, chef_id) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Events (name, date_start, date_end, chef_id, team, summary_scheme) VALUES (?, ?, ?, ?,?,?)";
 
         Long startTimestamp = (dateStart != null) ? dateStart.getTime() : null;
         Long endTimestamp = (dateEnd != null) ? dateEnd.getTime() : null;
 
-        PersistenceManager.executeUpdate(query, name, startTimestamp, endTimestamp, getChefId());
+        PersistenceManager.executeUpdate(query, name, startTimestamp, endTimestamp, getChefId(),team,summaryScheme);
 
         // Get the ID of the newly inserted event
         id = PersistenceManager.getLastId();
@@ -133,7 +133,7 @@ public class Event {
     }
 
     public void updateEvent() {
-        String query = "UPDATE Events SET name = ?, date_start = ?, date_end = ?, chef_id = ? WHERE id = ?";
+        String query = "UPDATE Events SET name = ?, date_start = ?, date_end = ?, chef_id = ? team=?, summary_scheme=? WHERE id = ?";
 
         Long startTimestamp = (dateStart != null) ? dateStart.getTime() : null;
         Long endTimestamp = (dateEnd != null) ? dateEnd.getTime() : null;
