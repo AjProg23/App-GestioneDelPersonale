@@ -38,7 +38,7 @@ public class TeamManager {
 
 
     /**
-     * Notify the TeamrReceivers that a Team had been created
+     * Notify the TeamReceivers that a Team had been created
      * 
      * @param t          The team created
      */

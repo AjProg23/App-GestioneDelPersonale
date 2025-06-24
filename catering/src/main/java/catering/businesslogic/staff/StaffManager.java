@@ -23,6 +23,22 @@ public class StaffManager {
     }
 
     /**
+     * Add a new evevent receiver 
+     *  
+     */
+    public void addReceiver(StaffEventReceiver ser){
+        staffEventReceivers.add(ser);
+    }
+
+    /**
+     * Remove a staffEventReceiver from the staffEventReceivers 
+     *  
+     */
+    public void removeReceiver(StaffEventReceiver ser){
+        staffEventReceivers.remove(ser);
+    }
+
+    /**
      * create an event
      * @throws UseCaseLogicException            if the user is not an organizer
      */
@@ -53,7 +69,7 @@ public class StaffManager {
         CatERing.getInstance().getEventManager().setCurrentEvent(e);
         }
         else{
-            throw new UseCaseLogicException("L'utente " + u.getUserName() + " non è un organizzatore. Creazione evento negata.");
+            throw new UseCaseLogicException("L'utente " + u.getUserName() + " non è un organizzatore");
         }
         return  e;
     }
@@ -95,7 +111,7 @@ public class StaffManager {
      * @throws UseCaseLogicException            if no event is selected
      *  @throws UseCaseLogicException            if the user is not an organizer
      */
-    public StaffMember addNewMemberForTheEvent()throws UseCaseLogicException{
+    public StaffMember addNewMemberForTheEvent(StaffMember member)throws UseCaseLogicException{
         Event currEvent= CatERing.getInstance().getEventManager().getCurrentEvent();
         User u=CatERing.getInstance().getUserManager().getCurrentUser();
         if(currEvent==null){
@@ -104,7 +120,7 @@ public class StaffManager {
         if (!u.isOrganizer()) {
             throw new UseCaseLogicException("The User is not an organizer you can't add a member fot he event");
         }
-        StaffMember member = CatERing.getInstance().getStaffMemberManager().addNewMemberForTheEvent(currEvent);
+        CatERing.getInstance().getStaffMemberManager().addNewMemberForTheEvent(currEvent, member);
         return member;
     }
 
@@ -147,6 +163,25 @@ public class StaffManager {
         return v;
     }
 
+    /**
+     * Delete an evemt
+     * @throws UseCaseLogicException            if the user is not an organizer
+     */
+    public boolean deleteEvent(int eventID) throws UseCaseLogicException{      
+        User u = CatERing.getInstance().getUserManager().getCurrentUser();
+        if (u == null) {
+            System.out.println("Nessun utente autenticato, operazione negata.");
+            return false;
+        }
+        if (u.isOrganizer()) {
+            Boolean e=CatERing.getInstance().getEventManager().deleteEvent(eventID);
+            return e;
+        } else {
+            throw new UseCaseLogicException("L'utente " + u.getUserName() + " non è un organizzatore. Creazione evento negata.");
+        }
+    }
+
+
     public ArrayList<StaffEventReceiver> getStaffEventReceivers() {
         return staffEventReceivers;
     }
@@ -163,7 +198,6 @@ public class StaffManager {
         this.eventFeatures = eventFeatures;
     }
     
-
     
 
 

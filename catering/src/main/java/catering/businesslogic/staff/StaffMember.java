@@ -104,6 +104,15 @@ public class StaffMember {
         LOGGER.info("Saved Staff Member");
     }
 
+    public void udpatePermanentJob(){
+        String query = "UPDATE StaffMember SET nominativo = ?, ruoli = ?, permanente = ?, vacations_id = ?  WHERE id = ?";
+
+        
+
+        PersistenceManager.executeUpdate(query, nominativo, Ruoli, permanente,getVacationsID());
+
+        LOGGER.info("Updated StaffMember: " + nominativo + " (ID: " + id + ")");
+    }
     
     
 }

@@ -56,9 +56,8 @@ public class StaffMemberManager {
      * @param  e the event selected 
      * @return the staffMember added for the event
      */
-    public StaffMember addNewMemberForTheEvent(Event e)throws UseCaseLogicException{
+    public StaffMember addNewMemberForTheEvent(Event e, StaffMember sm )throws UseCaseLogicException{
         Event currEvent= CatERing.getInstance().getEventManager().getCurrentEvent();
-        StaffMember sm= createStaffMember();
         currEvent.getTeam().addMember(sm);
         sm.saveNewStaffMember();
         notifyStaffMemberAdded(sm);
@@ -72,6 +71,7 @@ public class StaffMemberManager {
      */
     public StaffMember offerPermanentJob(StaffMember sm) throws UseCaseLogicException{
         sm.setPermanente(true);
+        sm.udpatePermanentJob();
         notifyStaffMemberPermanentJob(sm);
         return sm;
     }
@@ -100,7 +100,7 @@ public class StaffMemberManager {
 
 
     /**
-     * Notify the StaffMemberReceiver that a StaffMember had been added to the teamof the currentEvent
+     * Notify the StaffMemberReceiver that a StaffMember had been added to the team of the currentEvent
      * 
      * @param sm          The staff member added to the current event
      */
