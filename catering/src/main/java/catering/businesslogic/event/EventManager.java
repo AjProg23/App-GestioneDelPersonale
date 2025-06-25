@@ -27,6 +27,7 @@ public class EventManager {
     private Event selectedEvent;
     private Service currentService;
     private Event currentEvent;
+    private SummaryScheme currentSummaryScheme;
 
     
 
@@ -180,9 +181,7 @@ public class EventManager {
     public Event createEvent(User u) throws UseCaseLogicException {
         System.out.println("L'utente è un organizzatore, può creare l'evento.");
         ArrayList<StaffMember> staffMembers= new ArrayList<>();
-        StaffMember st= CatERing.getInstance().getStaffMemberManager().createStaffMember();
-        staffMembers.add(st);
-        Team t= CatERing.getInstance().getTeamManager().createTeam(staffMembers);
+        Team t= CatERing.getInstance().getStaffManager().createTeam(staffMembers);
         return this.createEvent("nome", null, null, u, t);
     }
 
@@ -229,6 +228,35 @@ public class EventManager {
     }
 
     /**
+     * Create a summare scheme to associate top the current event
+     * 
+     * @param nrOfStaffMembersRequired          The number of staff reqwuired for the event 
+     * @param transportationNeeds               The Trasportqation nedded fot the event
+     * @param typeOfService                     The Type of service
+     * @param clientRequest                     the specific request from the client
+     * @throws UseCaseLogicException            if no event is selected
+     */
+    public SummaryScheme creatSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
+        Event currEvent= this.selectedEvent;
+        if(currEvent==null){
+            throw new UseCaseLogicException("Nessun evento selezionato di cui creare il summary scheme");
+        }
+        try {
+            LOGGER.info("Creating new summaryScheme for event" + selectedEvent.getName() + "'");
+        SummaryScheme ss=new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
+        ss.saveNewSummaryScheme();
+        selectedEvent.addSummaryScheme(ss);
+        this.currentSummaryScheme=ss;
+        notifySummarySchemeCreated(ss);
+        return ss;
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to create the summaryscheme");
+            return null;
+        }
+        
+    }
+
+    /**
      * Modifies an existing event
      * 
      * @param eventId ID of the event to modify
@@ -251,11 +279,14 @@ public class EventManager {
         }
     }
 
-    /*add summaryScheme for the Event
+    
+     /**
+     * add summaryScheme for the Event
+     * 
      * @param nrOfStaffMembersRequired          number of staff required for the event
      * @param transportationNeeds               any trasportation nedded for the event
-     * @param  typeOfService                    type of the service for the event
-     * @param  clientRequest                    any request from the client
+     * @param typeOfService                    type of the service for the event
+     * @param clientRequest                    any request from the client
      */
     public SummaryScheme addSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest){
         SummaryScheme summaryScheme= new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
@@ -526,11 +557,26 @@ public class EventManager {
         }
     }
 
+    // Notification methods to avoid code duplication
+    private void notifySummarySchemeCreated(SummaryScheme ss) {
+        for(EventReceiver receiver: eventReceivers){
+            receiver.updateSummarySchemeCreated(ss);
+        }
+    }
+
     public ArrayList<EventReceiver> getEventReceivers() {
         return eventReceivers;
     }
 
     public void setEventReceivers(ArrayList<EventReceiver> eventReceivers) {
         this.eventReceivers = eventReceivers;
+    }
+
+    public SummaryScheme getCurrentSummaryScheme() {
+        return currentSummaryScheme;
+    }
+
+    public void setCurrentSummaryScheme(SummaryScheme currentSummaryScheme) {
+        this.currentSummaryScheme = currentSummaryScheme;
     }
 }

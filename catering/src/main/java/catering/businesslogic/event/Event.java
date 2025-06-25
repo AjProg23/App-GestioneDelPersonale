@@ -115,6 +115,9 @@ public class Event {
         return false;
     }
 
+    public void addSummaryScheme(SummaryScheme ss){
+        summaryScheme=ss;
+    }
     
 
     // Database operations

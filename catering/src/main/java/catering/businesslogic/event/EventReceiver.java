@@ -24,5 +24,7 @@ public interface EventReceiver {
 
     void updateMenuRemoved(Service service);
 
+    void updateSummarySchemeCreated(SummaryScheme summaryScheme);
+
     
 }

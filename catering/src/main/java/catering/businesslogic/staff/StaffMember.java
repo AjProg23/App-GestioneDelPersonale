@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import catering.businesslogic.event.Vacation;
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
@@ -106,9 +105,6 @@ public class StaffMember {
 
     public void udpatePermanentJob(){
         String query = "UPDATE StaffMember SET nominativo = ?, ruoli = ?, permanente = ?, vacations_id = ?  WHERE id = ?";
-
-        
-
         PersistenceManager.executeUpdate(query, nominativo, Ruoli, permanente,getVacationsID());
 
         LOGGER.info("Updated StaffMember: " + nominativo + " (ID: " + id + ")");

@@ -3,6 +3,7 @@ package catering.persistence;
 import catering.businesslogic.event.Event;
 import catering.businesslogic.event.EventReceiver;
 import catering.businesslogic.event.Service;
+import catering.businesslogic.event.SummaryScheme;
 import catering.businesslogic.menu.Menu;
 
 /**
@@ -49,5 +50,10 @@ public class EventPersistence implements EventReceiver {
     @Override
     public void updateMenuRemoved(Service service) {
         service.removeMenuFromService();
+    }
+    
+    @Override
+    public void updateSummarySchemeCreated(SummaryScheme summaryScheme){
+        summaryScheme.saveNewSummaryScheme();
     }
 }

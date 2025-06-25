@@ -5,8 +5,7 @@ import catering.businesslogic.kitchen.KitchenTaskManager;
 import catering.businesslogic.menu.MenuManager;
 import catering.businesslogic.recipe.RecipeManager;
 import catering.businesslogic.shift.ShiftManager;
-import catering.businesslogic.staff.StaffMemberManager;
-import catering.businesslogic.staff.TeamManager;
+import catering.businesslogic.staff.StaffManager;
 import catering.businesslogic.user.UserManager;
 import catering.persistence.KitchenTaskPersistence;
 import catering.persistence.MenuPersistence;
@@ -27,8 +26,8 @@ public class CatERing {
     private EventManager eventMgr;
     private KitchenTaskManager kitchenTaskMgr;
     private ShiftManager shiftMgr;
-    private StaffMemberManager staffMemberManager;
-    private TeamManager teamManager;
+    private StaffManager staffManager;
+
 
     private MenuPersistence menuPersistence;
     private KitchenTaskPersistence kitchenTaskPersistence;
@@ -39,11 +38,11 @@ public class CatERing {
         userMgr = new UserManager();
         eventMgr = new EventManager();
         kitchenTaskMgr = new KitchenTaskManager();
+        staffManager= new StaffManager();
         shiftMgr = new ShiftManager(); // Add this line to initialize ShiftManager
-        staffMemberManager= new StaffMemberManager();
         menuPersistence = new MenuPersistence();
         kitchenTaskPersistence = new KitchenTaskPersistence();
-        teamManager=new TeamManager();
+
 
 
         menuMgr.addEventReceiver(menuPersistence);
@@ -114,21 +113,7 @@ public class CatERing {
         this.kitchenTaskMgr = kitchenTaskMgr;
     }
 
-    public StaffMemberManager getStaffMemberManager() {
-        return staffMemberManager;
-    }
 
-    public void setStaffMemberManager(StaffMemberManager staffMemberManager) {
-        this.staffMemberManager = staffMemberManager;
-    }
-
-    public TeamManager getTeamManager() {
-        return teamManager;
-    }
-
-    public void setTeamManager(TeamManager teamManager) {
-        this.teamManager = teamManager;
-    }
 
     public MenuPersistence getMenuPersistence() {
         return menuPersistence;
@@ -144,6 +129,14 @@ public class CatERing {
 
     public void setKitchenTaskPersistence(KitchenTaskPersistence kitchenTaskPersistence) {
         this.kitchenTaskPersistence = kitchenTaskPersistence;
+    }
+
+    public StaffManager getStaffManager() {
+        return staffManager;
+    }
+
+    public void setStaffManager(StaffManager staffManager) {
+        this.staffManager = staffManager;
     }
 
     
