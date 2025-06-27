@@ -10,4 +10,5 @@ public interface StaffEventReceiver{
     public void updateStaffMemberAdded(StaffMember sm);
     public void UpdateStaffMemberPermanentJob(StaffMember sm);
     public void updateTeamCreated(Team t);
+    public void updateMemberRemoved(Team t, Integer smID);
 }

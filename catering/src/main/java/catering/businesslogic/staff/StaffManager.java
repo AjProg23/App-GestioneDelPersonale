@@ -155,6 +155,28 @@ public class StaffManager {
     }
 
 
+    /**
+     * Remove a Staf member form  a team
+     * @param  t                    the team selected
+     * @param  idStaffMember        the staff member id of the staff member we have to remove
+     * @throws UseCaseLogicException            if there isn't a staff member selected
+     * @throws UseCaseLogicException            if the user is not an organizer
+     * @return the vacations of the staff member
+     */
+    public Boolean eliminaMembro(Team team, Integer idStaffMember)throws UseCaseLogicException{
+        User u=CatERing.getInstance().getUserManager().getCurrentUser();
+        if (!u.isOrganizer()) {
+            throw new UseCaseLogicException("The User is not an organizer you can't visualize the vacation request of the staff member");
+        }
+        if(idStaffMember==null){
+            throw new UseCaseLogicException("there isn't a staff member selected");
+        }
+        Boolean result=team.removeMember(idStaffMember);
+        if(result){
+            notifyMemberRemoved(team,idStaffMember);
+        }
+        return  result;
+    }
         
 
     /**
@@ -192,23 +214,6 @@ public class StaffManager {
     }
 
 
-    /**
-     * Add a new evevent receiver 
-     *  
-     */
-    public void addReceiver(StaffEventReceiver ser){
-        staffEventReceivers.add(ser);
-    }
-
-    /**
-     * Remove a staffEventReceiver from the staffEventReceivers 
-     *  
-     */
-    public void removeReceiver(StaffEventReceiver ser){
-        staffEventReceivers.remove(ser);
-    }
-
-    
 
     /**
      * Notify the TeamReceivers that a Team had been created
@@ -218,6 +223,17 @@ public class StaffManager {
     private void notifyTeamCreated(Team t) {
        for (StaffEventReceiver ser : this.staffEventReceivers) {
             ser.updateTeamCreated(t);
+        }
+    }
+
+    /**
+     * Notify the StaffEventReceiver that a StaffMember had been removed from a team
+     * @param t           the them selected
+     * @param sm          The staff member removed
+     */
+    public void notifyMemberRemoved(Team t,Integer sm){
+        for (StaffEventReceiver ser : this.staffEventReceivers) {
+            ser.updateMemberRemoved(t,sm);
         }
     }
 
@@ -244,5 +260,24 @@ public class StaffManager {
     public Team getCurrentTeam() {
         return currentTeam;
     }
+
+    
+    /**
+     * Add a new evevent receiver 
+     *  
+     */
+    public void addReceiver(StaffEventReceiver ser){
+        staffEventReceivers.add(ser);
+    }
+
+    /**
+     * Remove a staffEventReceiver from the staffEventReceivers 
+     *  
+     */
+    public void removeReceiver(StaffEventReceiver ser){
+        staffEventReceivers.remove(ser);
+    }
+
+    
 
 }

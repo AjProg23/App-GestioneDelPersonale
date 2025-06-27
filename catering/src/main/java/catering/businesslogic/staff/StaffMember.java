@@ -12,7 +12,7 @@ public class StaffMember {
     
     private static final Logger LOGGER = LogManager.getLogger(StaffMember.class);
     
-    private int id;
+    private Integer id;
     private String nominativo;
     private ArrayList<String>[] Ruoli;
     private Boolean permanente;
@@ -21,7 +21,7 @@ public class StaffMember {
     
     
 
-    public StaffMember(int id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente,
+    public StaffMember(Integer id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente,
             List<Vacation> vacations) {
         this.id = id;
         this.nominativo = nominativo;
@@ -30,7 +30,7 @@ public class StaffMember {
         this.vacations = vacations;
     }
 
-    public StaffMember(int id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente) {
+    public StaffMember(Integer id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente) {
         this.id = id;
         this.nominativo = nominativo;
         Ruoli = ruoli;
@@ -47,13 +47,13 @@ public class StaffMember {
     
    
    
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     
 
-  public void setId(int id) {
+  public void setId(Integer id) {
         this.id = id;
     }
 
