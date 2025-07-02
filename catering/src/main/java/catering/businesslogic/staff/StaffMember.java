@@ -14,9 +14,9 @@ public class StaffMember {
     
     private Integer id;
     private String nominativo;
-    private ArrayList<String>[] Ruoli;
+    private ArrayList<String>[] ruoli;                              
     private Boolean permanente;
-    private List<Vacation> vacations;
+    private List<Vacation> vacations;                   //not in the DB, vacation has the refeer to the staff member
    
     
     
@@ -25,7 +25,7 @@ public class StaffMember {
             List<Vacation> vacations) {
         this.id = id;
         this.nominativo = nominativo;
-        Ruoli = ruoli;
+        this.ruoli = ruoli;
         this.permanente = permanente;
         this.vacations = vacations;
     }
@@ -33,7 +33,7 @@ public class StaffMember {
     public StaffMember(Integer id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente) {
         this.id = id;
         this.nominativo = nominativo;
-        Ruoli = ruoli;
+        this.ruoli = ruoli;
         this.permanente = permanente;
     }
 
@@ -66,11 +66,11 @@ public class StaffMember {
     }
 
     public ArrayList<String>[] getRuoli() {
-        return Ruoli;
+        return ruoli;
     }
 
     public void setRuoli(ArrayList<String>[] ruoli) {
-        Ruoli = ruoli;
+        this.ruoli = ruoli;
     }    
 
    public List<Vacation> getVacations() {
@@ -95,7 +95,7 @@ public class StaffMember {
         String query = "INSERT INTO StaffMember (nominativo, ruoli, permanente, vacations_id) VALUES (?, ?, ?, ?,?,?)";
 
 
-        PersistenceManager.executeUpdate(query, nominativo, Ruoli, permanente,getVacationsID());
+        PersistenceManager.executeUpdate(query, nominativo, ruoli, permanente,getVacationsID());
 
         // Get the ID of the newly inserted event
         id = PersistenceManager.getLastId();
@@ -105,10 +105,28 @@ public class StaffMember {
 
     public void udpatePermanentJob(){
         String query = "UPDATE StaffMember SET nominativo = ?, ruoli = ?, permanente = ?, vacations_id = ?  WHERE id = ?";
-        PersistenceManager.executeUpdate(query, nominativo, Ruoli, permanente,getVacationsID());
+        PersistenceManager.executeUpdate(query, nominativo, toStringRuoli(), permanente);
 
         LOGGER.info("Updated StaffMember: " + nominativo + " (ID: " + id + ")");
     }
     
+    public String toStringRuoli(){
+        if (ruoli == null || ruoli.length == 0) return "";
+
+        StringBuilder result = new StringBuilder();
+
+        for (ArrayList<String> lista : ruoli) {
+         if (lista != null) {
+             for (String ruolo : lista) {
+                    if (ruolo != null && !ruolo.isBlank()) {
+                        if (result.length() > 0) result.append(", ");
+                        result.append(ruolo);
+                    }
+                }
+            }
+        }
+
+        return result.toString();
+    }
     
 }

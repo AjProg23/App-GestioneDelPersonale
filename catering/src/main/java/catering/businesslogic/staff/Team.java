@@ -13,7 +13,7 @@ import catering.util.LogManager;
 public class Team {
     
     private static final Logger LOGGER = LogManager.getLogger(Team.class);
-    private List<StaffMember> team;
+    private List<StaffMember> team;                                                         // Integer IDs into the DB
     public Team() {
     }
 

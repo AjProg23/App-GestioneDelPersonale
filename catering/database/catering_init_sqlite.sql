@@ -34,6 +34,16 @@ DROP TABLE IF EXISTS `Roles`;
 
 DROP TABLE IF EXISTS `Users`;
 
+DROP TABLE IF EXISTS `Team`;
+
+DROP TABLE IF EXISTS `SummaryScheme`;
+
+DROP TABLE IF EXISTS `StaffMember`;
+
+DROP TABLE IF EXISTS `Team_StaffMember`;        --for many-to-many relation
+
+DROP TABLE IF EXISTS `Vacation`;
+
 -- 2) CREATE ALL TABLES (in dependency order)
 -- Start with tables that don't depend on others
 CREATE TABLE
@@ -185,6 +195,43 @@ CREATE TABLE
         FOREIGN KEY (`cook_id`) REFERENCES `Users` (`id`),
         FOREIGN KEY (`shift_id`) REFERENCES `Shifts` (`id`)
     );
+
+CREATE TABLE
+    `Team` (
+        `id` INTEGER PRIMARY KEY AUTOINCREMENT
+    );
+
+CREATE TABLE `SummaryScheme` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `nr_of_staff_members_required` INTEGER NOT NULL,
+    `transportation_needs` TEXT,
+    `type_of_service` TEXT,
+    `client_request` TEXT
+);
+
+
+CREATE TABLE `StaffMember` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `nominativo` TEXT NOT NULL,
+    `permanente` BOOLEAN,
+    `ruoli` TEXT
+);
+
+CREATE TABLE `Team_StaffMember` (
+    `team_id` INTEGER NOT NULL,
+    `staff_member_id` INTEGER NOT NULL,
+    PRIMARY KEY (`team_id`, `staff_member_id`),
+    FOREIGN KEY (`team_id`) REFERENCES `Team`(`id`),
+    FOREIGN KEY (`staff_member_id`) REFERENCES `StaffMember`(`id`)
+);
+
+CREATE TABLE `Vacation` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `start_date` TEXT,
+    `end_date` TEXT,
+    `staff_member_id` INTEGER,
+    FOREIGN KEY (`staff_member_id`) REFERENCES `StaffMember`(`id`)
+);
 
 -- Clean up existing data
 DELETE FROM RecipePreparations
