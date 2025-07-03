@@ -117,6 +117,7 @@ public class Event {
 
     public void addSummaryScheme(SummaryScheme ss){
         summaryScheme=ss;
+        updateEvent();
     }
     
 
@@ -141,7 +142,7 @@ public class Event {
         Long startTimestamp = (dateStart != null) ? dateStart.getTime() : null;
         Long endTimestamp = (dateEnd != null) ? dateEnd.getTime() : null;
 
-        PersistenceManager.executeUpdate(query, name, startTimestamp, endTimestamp, getChefId(), id);
+        PersistenceManager.executeUpdate(query, name, startTimestamp, endTimestamp, getChefId(), team.getId(),summaryScheme.getId(), id);
 
         LOGGER.info("Updated event: " + name + " (ID: " + id + ")");
     }

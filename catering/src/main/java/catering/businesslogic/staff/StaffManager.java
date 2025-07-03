@@ -35,7 +35,7 @@ public class StaffManager {
      * @param featuresValue                     
      * @throws UseCaseLogicException            if no event is selected
      */
-    public StaffMember createStaffMember(int id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente) throws UseCaseLogicException{
+    public StaffMember createStaffMember(Integer id, String nominativo, ArrayList<String> ruoli, Boolean permanente) throws UseCaseLogicException{
         try {
         User user = CatERing.getInstance().getUserManager().getCurrentUser();
         if(!user.isOrganizer()){
@@ -98,7 +98,6 @@ public class StaffManager {
             event.getTeam().addMember(member);
             this.setCurrentStaffMember(member);
             this.notifyStaffMemberAdded(member);
-            member.saveNewStaffMember();
             return member;
         } catch (Exception exception) {
             LOGGER.log(Level.SEVERE, "Failed to add the memeber for the event '" + event.getName()+".  Errore:"+exception);
@@ -127,7 +126,7 @@ public class StaffManager {
         sm.setPermanente(true);
         this.notifyStaffMemberPermanentJob(sm);
         this.setCurrentStaffMember(sm);
-        sm.udpatePermanentJob();
+        sm.updateStaffMember();
         return sm;
         } catch (Exception exception) {
             LOGGER.log(Level.SEVERE, "Failed to register as permanent for the staff member" + sm.getNominativo()+".  Errore:"+exception);

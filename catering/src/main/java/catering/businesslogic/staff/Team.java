@@ -5,89 +5,90 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
-import catering.businesslogic.UseCaseLogicException;
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
-//aggiunto 
 public class Team {
-    
     private static final Logger LOGGER = LogManager.getLogger(Team.class);
-    private List<StaffMember> team;                                                         // Integer IDs into the DB
-    public Team() {
+
+    private Integer id;
+    private List<StaffMember> members = new ArrayList<>();
+
+    public Team() { }
+
+
+    public Team(List<StaffMember> members) {
+        this.members = members;
     }
 
-    public Team(ArrayList<StaffMember> team) {
-        this.team = team;
+    public Integer getId() {
+        return id;
     }
 
+    public List<StaffMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<StaffMember> members) {
+        this.members = members;
+    }
 
     /**
-     * Add a new member for this team 
-     * @throws UseCaseLogicException            if no event is selected
+     * Inserisce la riga in Team e nelle righe di join Team_StaffMember.
      */
-    public Boolean addMember(StaffMember member) {
-        if (member != null) {
-            team.add(member);
-            System.out.println("Aggiunto al team: " + member.getNominativo());
+    public void saveNewTeam() {
+        // 1. Creo il record in Team
+        String insertTeam = "INSERT INTO Team DEFAULT VALUES";
+        PersistenceManager.executeUpdate(insertTeam);
+        this.id = PersistenceManager.getLastId();
+
+        // 2. Creo le righe di join
+        String linkSql = "INSERT INTO Team_StaffMember (team_id, staff_member_id) VALUES (?, ?)";
+        for (StaffMember sm : members) {
+            PersistenceManager.executeUpdate(linkSql, id, sm.getId());
         }
+        LOGGER.info("Team creato con ID=" + id + " e " + members.size() + " membri.");
+    }
+
+    /**
+     * Aggiunge un membro al team sia in memoria sia in DB (se già salvato).
+     * @param member il membro da aggiungere
+     * @return false if there's a member selected, true if the operation is successful
+     */
+    public boolean addMember(StaffMember member) {
+        if (member == null) return false;
+        members.add(member);
+
+        if (id != null) {
+            String linkSql = "INSERT INTO Team_StaffMember (team_id, staff_member_id) VALUES (?, ?)";
+            PersistenceManager.executeUpdate(linkSql, id, member.getId());
+            LOGGER.info("Aggiunto al team (DB) staffMember_id=" + member.getId());
+        }
+
+        LOGGER.info("Aggiunto in memoria al team: " + member.getNominativo());
         return true;
     }
 
-
     /**
-     * Remove a staff member from the team team 
-     * @param memberID                          the id of the staff member the user want to remove
-     * @return TRUE if it is pobble to remove the staff member, false otherwise
+     * Rimuove un membro dal team: in memoria e nella tabella di join.
      */
-    public Boolean removeMember(Integer memberID) {
-    Iterator<StaffMember> iterator = team.iterator();
-    while (iterator.hasNext()) {
-        StaffMember member = iterator.next();
-        if (member.getId().equals(memberID)) {
-            iterator.remove();
-            removeStaffMember(memberID);
-            return true;
+    public boolean removeMember(Integer memberId) {
+        Iterator<StaffMember> it = members.iterator();
+        while (it.hasNext()) {
+            StaffMember sm = it.next();
+            if (sm.getId().equals(memberId)) {
+                it.remove();
+                if (id != null) {
+                    String deleteLink = "DELETE FROM Team_StaffMember "
+                                      + "WHERE team_id = ? AND staff_member_id = ?";
+                    PersistenceManager.executeUpdate(deleteLink, id, memberId);
+                    LOGGER.info("Rimosso dal DB staffMember_id=" + memberId);
+                }
+                LOGGER.info("Rimosso in memoria staffMember_id=" + memberId);
+                return true;
+            }
         }
+        LOGGER.warning("Impossibile rimuovere: staffMember_id=" + memberId + " non presente.");
+        return false;
     }
-    LOGGER.info("Impossible to remove the staff member, it is not a member of the team");
-    return false;
-}
-
-    // Database operations
-    public void saveNewTeam() {
-        String query = "INSERT INTO Team (staffMember_id) VALUES (?)";
-
-        PersistenceManager.executeUpdate(query, getStaffMemberID());
-
-        LOGGER.info("Saved Staff Member");
-    }
-
-
-    public void removeStaffMember(Integer memberID){
-        String query = "DELETE FROM Team WHERE staffMember_id = ?";
-        PersistenceManager.executeUpdate(query, memberID);
-
-        LOGGER.info("Removed Staff Member with ID: " + memberID);
-    }
-
-
-
-
-    public List<StaffMember> getTeam() {
-        return team;
-    }
-
-    public void setTeam(ArrayList<StaffMember> team) {
-        this.team = team;
-    }
-    
-    public List<Integer> getStaffMemberID(){
-        ArrayList<Integer> result= new ArrayList<>();
-        for (StaffMember sm: team){
-            result.add(sm.getId());
-        }
-        return result;
-    }
-    
 }

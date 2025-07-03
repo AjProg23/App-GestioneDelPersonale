@@ -74,14 +74,6 @@ CREATE TABLE
     );
 
 -- Tables with simple dependencies
-CREATE TABLE
-    `Events` (
-        `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-        `name` TEXT,
-        `date_start` DATE,
-        `date_end` DATE,
-        `chef_id` INTEGER NOT NULL
-    );
 
 CREATE TABLE
     `Menus` (
@@ -196,10 +188,7 @@ CREATE TABLE
         FOREIGN KEY (`shift_id`) REFERENCES `Shifts` (`id`)
     );
 
-CREATE TABLE
-    `Team` (
-        `id` INTEGER PRIMARY KEY AUTOINCREMENT
-    );
+
 
 CREATE TABLE `SummaryScheme` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -213,9 +202,15 @@ CREATE TABLE `SummaryScheme` (
 CREATE TABLE `StaffMember` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `nominativo` TEXT NOT NULL,
-    `permanente` BOOLEAN,
-    `ruoli` TEXT
+    `ruoli` TEXT,
+    `permanente` BOOLEAN
+    
 );
+
+CREATE TABLE
+    `Team` (
+        `id` INTEGER PRIMARY KEY AUTOINCREMENT
+    );
 
 CREATE TABLE `Team_StaffMember` (
     `team_id` INTEGER NOT NULL,
@@ -232,6 +227,20 @@ CREATE TABLE `Vacation` (
     `staff_member_id` INTEGER,
     FOREIGN KEY (`staff_member_id`) REFERENCES `StaffMember`(`id`)
 );
+
+CREATE TABLE
+    `Events` (
+        `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+        `name` TEXT,
+        `date_start` DATE,
+        `date_end` DATE,
+        `chef_id` INTEGER NOT NULL,
+        `team_id` INTEGER,           
+        `summary_scheme_id` INTEGER, 
+        FOREIGN KEY (`team_id`) REFERENCES `Team`(`id`),
+        FOREIGN KEY (`summary_scheme_id`) REFERENCES `SummaryScheme`(`id`)
+
+    );
 
 -- Clean up existing data
 DELETE FROM RecipePreparations
@@ -1059,9 +1068,18 @@ FROM Recipes r WHERE r.name = 'Gelato Artigianale';
 
 -- ===== ADD SAMPLE EVENT AND SERVICES =====
 
--- Create a new event
-INSERT INTO Events (name, date_start, date_end, chef_id) VALUES 
-('Gala Aziendale Annuale', date('2025-06-15'), date('2025-06-16'), 5);  -- Assigned to Antonio
+-- Create 3 new event
+-- Wedding Event
+INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
+VALUES ('Smith Wedding', '2023-06-15 16:00:00', '2023-06-15 23:00:00', 1, 1, 1);
+
+-- Corporate Meeting
+INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
+VALUES ('Tech Conference Lunch', '2023-07-20 11:30:00', '2023-07-20 14:00:00', 1, 2, 2);
+
+-- Birthday Party
+INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
+VALUES ('Emma''s 10th Birthday', '2023-08-05 12:00:00', '2023-08-05 17:00:00', 2, 3, 3);
 
 -- Create two services for this event
 -- First service (lunch): assigned to chef Antonio (ID 5) with the existing menu (ID 1)
@@ -1101,3 +1119,62 @@ INSERT INTO Services (
     time('23:00'),              -- End time
     'Sala Esecutiva'            -- Location in Italian
 );
+
+
+
+-- SummaryScheme 1: Wedding event
+INSERT INTO SummaryScheme (nr_of_staff_members_required, transportation_needs, type_of_service, client_request)
+VALUES (8, 'Shuttle bus from Porta Nuova Turin station to the place of destination', 'Wedding catering', 'Vegetarian menu required, gluten-free options');
+
+-- SummaryScheme 2: Corporate meeting
+INSERT INTO SummaryScheme (nr_of_staff_members_required, transportation_needs, type_of_service, client_request)
+VALUES (5, 'None', 'Business lunch', 'Quick service between 12:00-13:00');
+
+-- SummaryScheme 3: Birthday party
+INSERT INTO SummaryScheme (nr_of_staff_members_required, transportation_needs, type_of_service, client_request)
+VALUES (5, 'None', 'Private party', 'Children-friendly staff, cake service at 16:00');
+
+
+-- StaffMember 1: Permanent chef
+INSERT INTO StaffMember (nominativo, ruoli, permanente)
+VALUES ('Mario Rossi', 'Head Chef, Pasta Specialist', 1);
+
+-- StaffMember 2: Temporary waiter
+INSERT INTO StaffMember (nominativo, ruoli, permanente)
+VALUES ('Luigi Bianchi', 'Waiter, Bartender', 0);
+
+-- StaffMember 3: Permanent manager
+INSERT INTO StaffMember (nominativo, ruoli, permanente)
+VALUES ('Anna Verdi', 'Event Manager, Customer Service', 1);
+
+-- Team 1: Wedding team
+INSERT INTO Team (id) VALUES (1);
+
+-- Team 2: Corporate team
+INSERT INTO Team (id) VALUES (2);
+
+-- Team 3: Party team
+INSERT INTO Team (id) VALUES (3);
+
+-- Team 1 members (Wedding team)
+INSERT INTO Team_StaffMember (team_id, staff_member_id)
+VALUES (1, 1); -- Mario Rossi (chef) in wedding team
+
+INSERT INTO Team_StaffMember (team_id, staff_member_id)
+VALUES (1, 2); -- Luigi Bianchi (waiter) in wedding team
+
+INSERT INTO Team_StaffMember (team_id, staff_member_id)
+VALUES (1, 3); -- Anna Verdi (manager) in wedding team
+
+
+-- Vacation 1: Mario Rossi's summer break
+INSERT INTO Vacation (start_date, end_date, staff_member_id)
+VALUES ('2023-07-15', '2023-07-30', 1);
+
+-- Vacation 2: Luigi Bianchi's winter break
+INSERT INTO Vacation (start_date, end_date, staff_member_id)
+VALUES ('2023-12-20', '2024-01-05', 2);
+
+-- Vacation 3: Anna Verdi's short leave
+INSERT INTO Vacation (start_date, end_date, staff_member_id)
+VALUES ('2023-05-10', '2023-05-12', 3);

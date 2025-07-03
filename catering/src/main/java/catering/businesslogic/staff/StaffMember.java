@@ -1,6 +1,5 @@
 package catering.businesslogic.staff;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -9,52 +8,82 @@ import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
 public class StaffMember {
-    
     private static final Logger LOGGER = LogManager.getLogger(StaffMember.class);
-    
+
     private Integer id;
     private String nominativo;
-    private ArrayList<String>[] ruoli;                              
+    private List<String> ruoli = new ArrayList<>();
     private Boolean permanente;
-    private List<Vacation> vacations;                   //not in the DB, vacation has the refeer to the staff member
-   
-    
-    
+    private List<Vacation> vacations;                            //not in the DB, vacation has the refeer to the staff member
 
-    public StaffMember(Integer id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente,
-            List<Vacation> vacations) {
+    public StaffMember(Integer id, String nominativo, List<String> ruoli, Boolean permanente) {
         this.id = id;
         this.nominativo = nominativo;
         this.ruoli = ruoli;
         this.permanente = permanente;
+        this.vacations=new ArrayList<>();
+    }
+
+    /**
+     * Add a new Vacation request for this staffMember
+     * @param  v                    the vacation request
+     */
+    public void addVacations(Vacation v){
+        vacations.add(v);
+    }
+
+
+    //DB FUNCTIONES
+    /**
+     * INSERT in StaffMember
+     *
+     */
+    public void saveNewStaffMember() {
+        String insertSql = "INSERT INTO StaffMember (nominativo, ruoli, permanente) VALUES (?, ?, ?)";
+        PersistenceManager.executeUpdate(insertSql,
+                                         nominativo,
+                                         toStringRuoli(),
+                                         permanente);
+        this.id = PersistenceManager.getLastId();
+        LOGGER.info("Nuovo StaffMember creato con ID=" + id);
+        // qui si potrebbero gestire vacanze, ruoli separati, ecc.
+    }
+
+    /**
+     * UPDATE dei dati base dello staff member.
+     */
+    public void updateStaffMember() {
+        if (id == null) {
+            LOGGER.warning("updateStaffMember: id non valorizzato");
+            return;
+        }
+        String updateSql = "UPDATE StaffMember "
+                         + "SET nominativo = ?, ruoli = ?, permanente = ? "
+                         + "WHERE id = ?";
+        PersistenceManager.executeUpdate(updateSql,
+                                         nominativo,
+                                         toStringRuoli(),
+                                         permanente,
+                                         id);
+        LOGGER.info("StaffMember aggiornato: ID=" + id);
+    }
+
+
+
+    public List<Vacation> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(List<Vacation> vacations) {
         this.vacations = vacations;
     }
 
-    public StaffMember(Integer id, String nominativo, ArrayList<String>[] ruoli, Boolean permanente) {
-        this.id = id;
-        this.nominativo = nominativo;
-        this.ruoli = ruoli;
-        this.permanente = permanente;
+    public StaffMember(String nominativo, List<String> ruoli, Boolean permanente) {
+        this(null, nominativo, ruoli, permanente);
     }
 
-    public Boolean getPermanente() {
-        return permanente;
-    }
-
-    public void setPermanente(Boolean permanente) {
-        this.permanente = permanente;
-    }
-    
-   
-   
     public Integer getId() {
         return id;
-    }
-
-    
-
-  public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNominativo() {
@@ -65,68 +94,26 @@ public class StaffMember {
         this.nominativo = nominativo;
     }
 
-    public ArrayList<String>[] getRuoli() {
+    public List<String> getRuoli() {
         return ruoli;
     }
 
-    public void setRuoli(ArrayList<String>[] ruoli) {
+    public void setRuoli(List<String> ruoli) {
         this.ruoli = ruoli;
-    }    
-
-   public List<Vacation> getVacations() {
-        return vacations;
     }
 
-    public List<Integer> getVacationsID() {
-    List<Integer> vacationsID = new ArrayList<>();
-    for (Vacation v : vacations) {
-        vacationsID.add(v.getId());
-    }
-    return vacationsID;
-}
-
-
-    public void setVacations(List<Vacation> vacations) {
-        this.vacations = vacations;
+    public Boolean isPermanente() {
+        return permanente;
     }
 
-    // Database operations
-    public void saveNewStaffMember() {
-        String query = "INSERT INTO StaffMember (nominativo, ruoli, permanente, vacations_id) VALUES (?, ?, ?, ?,?,?)";
-
-
-        PersistenceManager.executeUpdate(query, nominativo, ruoli, permanente,getVacationsID());
-
-        // Get the ID of the newly inserted event
-        id = PersistenceManager.getLastId();
-
-        LOGGER.info("Saved Staff Member");
+    public void setPermanente(Boolean permanente) {
+        this.permanente = permanente;
     }
 
-    public void udpatePermanentJob(){
-        String query = "UPDATE StaffMember SET nominativo = ?, ruoli = ?, permanente = ?, vacations_id = ?  WHERE id = ?";
-        PersistenceManager.executeUpdate(query, nominativo, toStringRuoli(), permanente);
-
-        LOGGER.info("Updated StaffMember: " + nominativo + " (ID: " + id + ")");
+    /**
+     * Serializza i ruoli in un'unica stringa separata da virgole.
+     */
+    private String toStringRuoli() {
+        return String.join(", ", ruoli);
     }
-    
-    public String toStringRuoli(){
-        if (ruoli == null || ruoli.length == 0) return "";
-
-        StringBuilder result = new StringBuilder();
-
-        for (ArrayList<String> lista : ruoli) {
-         if (lista != null) {
-             for (String ruolo : lista) {
-                    if (ruolo != null && !ruolo.isBlank()) {
-                        if (result.length() > 0) result.append(", ");
-                        result.append(ruolo);
-                    }
-                }
-            }
-        }
-
-        return result.toString();
-    }
-    
 }
