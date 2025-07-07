@@ -1081,6 +1081,25 @@ VALUES ('Tech Conference Lunch', '2023-07-20 11:30:00', '2023-07-20 14:00:00', 1
 INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
 VALUES ('Emma''s 10th Birthday', '2023-08-05 12:00:00', '2023-08-05 17:00:00', 2, 3, 3);
 
+-- Gala
+INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
+VALUES ('Gala Aziendale Annuale', '2023-08-08 12:00:00', '2023-08-09 17:00:00', 5, 3, 3);
+
+-- Turni generici (non collegati direttamente ad eventi)
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-06-15', '14:00:00', '16:00:00');
+
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-06-15', '18:00:00', '21:00:00');
+
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-07-20', '10:00:00', '11:30:00');
+
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-08-05', '15:00:00', '16:30:00');
+
+
+
 -- Create two services for this event
 -- First service (lunch): assigned to chef Antonio (ID 5) with the existing menu (ID 1)
 INSERT INTO Services (
@@ -1092,7 +1111,7 @@ INSERT INTO Services (
     time_end, 
     location
 ) VALUES (
-    1,                          -- Event ID
+    4,                          -- Event ID
     'Pranzo Buffet Aziendale',  -- Service name in Italian
     1,                          -- Approved menu (same as proposed)
     date('2025-06-15'),         -- Service date
@@ -1111,7 +1130,7 @@ INSERT INTO Services (
     time_end, 
     location
 ) VALUES (
-    1,                          -- Event ID
+    4,                          -- Event ID
     'Cena di Gala',             -- Service name in Italian
     0,                          -- Not approved yet (0)
     date('2025-06-15'),         -- Service date
