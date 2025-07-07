@@ -162,7 +162,7 @@ public class StaffManager {
      * @throws UseCaseLogicException            if the user is not an organizer
      * @return the vacations of the staff member
      */
-    public Boolean eliminaMembro(Team team, Integer idStaffMember)throws UseCaseLogicException{
+    public Boolean RemoveMemberFromEvent(Team team, Integer idStaffMember)throws UseCaseLogicException{
         User u=CatERing.getInstance().getUserManager().getCurrentUser();
         if (!u.isOrganizer()) {
             throw new UseCaseLogicException("The User is not an organizer you can't visualize the vacation request of the staff member");
