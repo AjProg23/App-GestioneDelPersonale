@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.431" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.OfferPermanentJobTest" time="0.045" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,24 +58,21 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testRemoveMember_Success" classname="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.01">
-    <system-err><![CDATA[2025-07-08 13:55:15.233 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-08 13:55:15.239 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Marco
-2025-07-08 13:55:15.239 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-08 13:55:15.243 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
-2025-07-08 13:55:15.243 [INFO] catering.businesslogic.staff.Team: Rimosso in memoria staffMember_id=1
+  <testcase name="testOfferPermanentJob_Success" classname="catering.businesslogic.kitchen.OfferPermanentJobTest" time="0.02">
+    <system-err><![CDATA[2025-07-08 13:55:14.815 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 13:55:14.818 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-08 13:55:14.818 [INFO] catering.businesslogic.staff.StaffManager: Offering permanent job to staff member Marco
+2025-07-08 13:55:14.818 [WARNING] catering.businesslogic.staff.StaffMember: updateStaffMember: id non valorizzato
 ]]></system-err>
   </testcase>
-  <testcase name="testRemoveMember_NullStaffMember_Throws" classname="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.01">
-    <system-err><![CDATA[2025-07-08 13:55:15.251 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Marco
-2025-07-08 13:55:15.251 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-08 13:55:15.254 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+  <testcase name="testOfferPermanentJob_NullStaffMember_Throws" classname="catering.businesslogic.kitchen.OfferPermanentJobTest" time="0.011">
+    <system-err><![CDATA[2025-07-08 13:55:14.826 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 13:55:14.829 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
 ]]></system-err>
   </testcase>
-  <testcase name="testRemoveMember_UserNotOrganizer_Throws" classname="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.017">
-    <system-err><![CDATA[2025-07-08 13:55:15.264 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Marco
-2025-07-08 13:55:15.265 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-08 13:55:15.272 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+  <testcase name="testOfferPermanentJob_UserNotOrganizer_Throws" classname="catering.businesslogic.kitchen.OfferPermanentJobTest" time="0.009">
+    <system-err><![CDATA[2025-07-08 13:55:14.836 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-08 13:55:14.839 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
 ]]></system-err>
   </testcase>
 </testsuite>
