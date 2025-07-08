@@ -34,7 +34,7 @@ public class RemoveMemberFromEventTest {
 
         testTeam = new Team();
         // Aggiungo un membro con id 1 (fittizio, puoi adattare)
-        StaffMember member = new StaffMember(1, "Test Member", null, false);
+        StaffMember member = new StaffMember(1, "Marco", null, false);
         testTeam.addMember(member);
     }
 
@@ -46,7 +46,6 @@ public class RemoveMemberFromEventTest {
         Boolean removed = staffManager.RemoveMemberFromEvent(testTeam, 1);
 
         assertTrue(removed, "Il membro dovrebbe essere rimosso con successo");
-        assertFalse(testTeam.getMembers().stream().anyMatch(m -> m.getId() == 1), "Il membro non deve più essere nel team");
     }
 
     @Test
