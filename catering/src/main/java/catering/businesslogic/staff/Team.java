@@ -91,4 +91,9 @@ public class Team {
         LOGGER.warning("Impossibile rimuovere: staffMember_id=" + memberId + " non presente.");
         return false;
     }
+
+
+    public void setId(int i) {
+        this.id=i;
+    }
 }
