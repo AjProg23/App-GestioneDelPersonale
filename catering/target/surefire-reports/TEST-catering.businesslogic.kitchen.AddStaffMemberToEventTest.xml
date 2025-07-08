@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.SummarySheetTest" time="0.578" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.827" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,50 +58,25 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testSummarySheetCreation" classname="catering.businesslogic.kitchen.SummarySheetTest" time="0.129">
-    <system-err><![CDATA[2025-07-08 12:18:27.238 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-08 12:18:27.327 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-08 12:18:27.330 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
-2025-07-08 12:18:27.330 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Testing summary sheet creation
-2025-07-08 12:18:27.368 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Created summary sheet: 
-
-SummarySheet [ID: 0, Owner: Antonio, Service: Pranzo Buffet Aziendale, Tasks: 9, Assignments: 0]
-
-Tasks:
-  1. [ ] Caprese
-  2. [ ] Prosciutto e Melone
-  3. [ ] Spaghetti alla Carbonara
-  4. [ ] Salsa carbonara
-  5. [ ] Ossobuco alla Milanese
-  6. [ ] Brodo di carne
-  7. [ ] Gremolata
-  8. [ ] Panna Cotta
-  9. [ ] Gelato Artigianale
+  <testcase name="testAddMemberToEvent_Success" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.109">
+    <system-err><![CDATA[2025-07-08 12:18:26.652 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
+2025-07-08 12:18:26.661 [INFO] catering.businesslogic.shift.Shift: Loading all shifts from database
+2025-07-08 12:18:26.688 [INFO] catering.businesslogic.shift.Shift: Loaded 4 shifts
+2025-07-08 12:18:26.787 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 12:18:26.790 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-08 12:18:26.794 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Laura to te event Gala Aziendale Annuale
+2025-07-08 12:18:26.794 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Laura
+2025-07-08 12:18:26.796 [INFO] catering.businesslogic.kitchen.AddStaffMemberToEventTest: Staff member added successfully: Laura
 ]]></system-err>
   </testcase>
-  <testcase name="testTaskAssignment" classname="catering.businesslogic.kitchen.SummarySheetTest" time="0.114">
-    <system-err><![CDATA[2025-07-08 12:18:27.438 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-08 12:18:27.440 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
-2025-07-08 12:18:27.440 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Testing task assignment to cook
-2025-07-08 12:18:27.475 [INFO] catering.businesslogic.shift.Shift: Added booking for user Luca to shift ID 0
-2025-07-08 12:18:27.485 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Successfully assigned task. Assignment details: Task: Caprese, Cook: Luca, Shift: 2025-04-07 09:00:00-14:00:00
-2025-07-08 12:18:27.485 [INFO] catering.businesslogic.kitchen.SummarySheetTest: 
-
-SummarySheet [ID: 0, Owner: Antonio, Service: Pranzo Buffet Aziendale, Tasks: 9, Assignments: 1]
-
-Tasks:
-  1. [ ] Caprese
-  2. [ ] Prosciutto e Melone
-  3. [ ] Spaghetti alla Carbonara
-  4. [ ] Salsa carbonara
-  5. [ ] Ossobuco alla Milanese
-  6. [ ] Brodo di carne
-  7. [ ] Gremolata
-  8. [ ] Panna Cotta
-  9. [ ] Gelato Artigianale
-
-Assignments:
-  1. Task: Caprese, Cook: Luca, Shift: 2025-04-07 (09:00:00-14:00:00)
+  <testcase name="testAddMember_NullEvent_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.048">
+    <system-err><![CDATA[2025-07-08 12:18:26.851 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 12:18:26.853 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+]]></system-err>
+  </testcase>
+  <testcase name="testAddMember_NotOrganizer_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.045">
+    <system-err><![CDATA[2025-07-08 12:18:26.898 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-08 12:18:26.901 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
 ]]></system-err>
   </testcase>
 </testsuite>
