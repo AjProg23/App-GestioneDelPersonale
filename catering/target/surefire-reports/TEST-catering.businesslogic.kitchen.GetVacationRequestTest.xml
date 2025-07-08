@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.373" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.GetVacationRequestTest" time="0.416" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,24 +58,21 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testRemoveMember_Success" classname="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.008">
-    <system-err><![CDATA[2025-07-08 13:19:14.824 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-08 13:19:14.830 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Marco
-2025-07-08 13:19:14.830 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-08 13:19:14.832 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
-2025-07-08 13:19:14.832 [INFO] catering.businesslogic.staff.Team: Rimosso in memoria staffMember_id=1
+  <testcase name="testGetVacation_Success" classname="catering.businesslogic.kitchen.GetVacationRequestTest" time="0.015">
+    <system-err><![CDATA[2025-07-08 13:19:14.406 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
+2025-07-08 13:19:14.417 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 13:19:14.422 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-08 13:19:14.423 [INFO] catering.businesslogic.kitchen.GetVacationRequestTest: Vacanze trovate per Marco: 0
 ]]></system-err>
   </testcase>
-  <testcase name="testRemoveMember_NullStaffMember_Throws" classname="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.01">
-    <system-err><![CDATA[2025-07-08 13:19:14.839 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Marco
-2025-07-08 13:19:14.839 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-08 13:19:14.842 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+  <testcase name="testGetVacation_StaffMemberNull_Throws" classname="catering.businesslogic.kitchen.GetVacationRequestTest" time="0.013">
+    <system-err><![CDATA[2025-07-08 13:19:14.431 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 13:19:14.435 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
 ]]></system-err>
   </testcase>
-  <testcase name="testRemoveMember_UserNotOrganizer_Throws" classname="catering.businesslogic.kitchen.RemoveMemberFromEventTest" time="0.015">
-    <system-err><![CDATA[2025-07-08 13:19:14.855 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Marco
-2025-07-08 13:19:14.855 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-08 13:19:14.858 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+  <testcase name="testGetVacation_UserNotOrganizer_Throws" classname="catering.businesslogic.kitchen.GetVacationRequestTest" time="0.045">
+    <system-err><![CDATA[2025-07-08 13:19:14.465 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-08 13:19:14.482 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
 ]]></system-err>
   </testcase>
 </testsuite>

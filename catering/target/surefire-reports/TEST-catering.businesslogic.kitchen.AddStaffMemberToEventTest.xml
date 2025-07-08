@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.808" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.78" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire10046404799886483894\surefirebooter-20250708130845328_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire10046404799886483894 2025-07-08T13-08-45_138-jvmRun1 surefire-20250708130845328_1tmp surefire_0-20250708130845328_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire13016703046960067276\surefirebooter-20250708131912659_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire13016703046960067276 2025-07-08T13-19-12_444-jvmRun1 surefire-20250708131912659_1tmp surefire_0-20250708131912659_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="c:\Users\ahed_\Desktop\SAS\catering\target\test-classes;c:\Users\ahed_\Desktop\SAS\catering\target\classes;C:\Users\ahed_\.m2\repository\org\xerial\sqlite-jdbc\3.49.1.0\sqlite-jdbc-3.49.1.0.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\ahed_\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire10046404799886483894\surefirebooter-20250708130845328_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire13016703046960067276\surefirebooter-20250708131912659_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -58,25 +58,25 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testAddMemberToEvent_Success" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.103">
-    <system-err><![CDATA[2025-07-08 13:08:46.476 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-08 13:08:46.486 [INFO] catering.businesslogic.shift.Shift: Loading all shifts from database
-2025-07-08 13:08:46.507 [INFO] catering.businesslogic.shift.Shift: Loaded 4 shifts
-2025-07-08 13:08:46.600 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-08 13:08:46.602 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
-2025-07-08 13:08:46.606 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Laura to te event Gala Aziendale Annuale
-2025-07-08 13:08:46.606 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Laura
-2025-07-08 13:08:46.607 [INFO] catering.businesslogic.kitchen.AddStaffMemberToEventTest: Staff member added successfully: Laura
+  <testcase name="testAddMemberToEvent_Success" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.108">
+    <system-err><![CDATA[2025-07-08 13:19:13.818 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
+2025-07-08 13:19:13.827 [INFO] catering.businesslogic.shift.Shift: Loading all shifts from database
+2025-07-08 13:19:13.847 [INFO] catering.businesslogic.shift.Shift: Loaded 4 shifts
+2025-07-08 13:19:13.942 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 13:19:13.946 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-08 13:19:13.948 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Laura to te event Gala Aziendale Annuale
+2025-07-08 13:19:13.949 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Laura
+2025-07-08 13:19:13.950 [INFO] catering.businesslogic.kitchen.AddStaffMemberToEventTest: Staff member added successfully: Laura
 ]]></system-err>
   </testcase>
-  <testcase name="testAddMember_NullEvent_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.048">
-    <system-err><![CDATA[2025-07-08 13:08:46.662 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-08 13:08:46.664 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+  <testcase name="testAddMember_NullEvent_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.05">
+    <system-err><![CDATA[2025-07-08 13:19:14.008 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-08 13:19:14.011 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
 ]]></system-err>
   </testcase>
-  <testcase name="testAddMember_NotOrganizer_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.057">
-    <system-err><![CDATA[2025-07-08 13:08:46.720 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-08 13:08:46.722 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+  <testcase name="testAddMember_NotOrganizer_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.048">
+    <system-err><![CDATA[2025-07-08 13:19:14.058 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-08 13:19:14.061 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
 ]]></system-err>
   </testcase>
 </testsuite>
