@@ -161,5 +161,30 @@ public class StaffMember {
         this.vacations = Vacation.loadByStaffMemberId(this.id);
     }
 
+    public static List<StaffMember> loadByTeamId(int teamId) {
+    List<StaffMember> members = new ArrayList<>();
+
+    String query = "SELECT sm.id, sm.nominativo, sm.ruoli, sm.permanente " +
+                   "FROM StaffMember sm " +
+                   "JOIN Team_StaffMember tsm ON sm.id = tsm.staff_member_id " +
+                   "WHERE tsm.team_id = ?";
+
+    PersistenceManager.executeQuery(query, rs -> {
+        int id = rs.getInt("id");
+        String nominativo = rs.getString("nominativo");
+        String ruoliStr = rs.getString("ruoli");
+        boolean permanente = rs.getBoolean("permanente");
+
+        List<String> ruoli = new ArrayList<>();
+        if (ruoliStr != null && !ruoliStr.isEmpty()) {
+            ruoli = Arrays.asList(ruoliStr.split(",\\s*"));
+        }
+
+        StaffMember sm = new StaffMember(id, nominativo, ruoli, permanente);
+        members.add(sm);
+    }, teamId);
+
+    return members;
+ }
 
 }

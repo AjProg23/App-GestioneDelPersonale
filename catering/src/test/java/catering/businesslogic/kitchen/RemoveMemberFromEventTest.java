@@ -19,6 +19,8 @@ public class RemoveMemberFromEventTest {
     private static User nonOrganizer;
     private static Team testTeam;
     private static StaffManager staffManager;
+    private static StaffMember staffMember;
+
 
     @BeforeAll
     static void init() {
@@ -31,11 +33,8 @@ public class RemoveMemberFromEventTest {
     void setup() {
         organizer = User.load("Francesca"); // organizer
         nonOrganizer = User.load("Antonio"); // non organizer
-
+        staffMember = StaffMember.loadByName("Luigi Bianchi");
         testTeam = new Team();
-        // Aggiungo un membro con id 1 (fittizio, puoi adattare)
-        StaffMember member = new StaffMember(1, "Marco", null, false);
-        testTeam.addMember(member);
     }
 
     @Test
