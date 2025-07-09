@@ -149,7 +149,9 @@ public class StaffManager {
         if(sm==null){
             throw new UseCaseLogicException("Staff member not selected");
         }
-        List<Vacation> vacations=sm.getVacations();
+        setCurrentStaffMember(sm);
+
+        List<Vacation> vacations=currentStaffMember.getVacations();
         return vacations;
     }
 

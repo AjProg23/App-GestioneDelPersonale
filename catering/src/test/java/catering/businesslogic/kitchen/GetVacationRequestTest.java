@@ -24,7 +24,7 @@ public class GetVacationRequestTest {
     private static User organizer;
     private static User nonOrganizer;
     private static StaffManager staffManager;
-    private static StaffMember testMember;
+    private static StaffMember staffMember;
 
     @BeforeAll
     static void init() {
@@ -34,12 +34,13 @@ public class GetVacationRequestTest {
     }
 
     @BeforeEach
-    void setup() {
+    void setup() throws UseCaseLogicException {
         organizer = User.load("Francesca"); // organizer
         nonOrganizer = User.load("Antonio"); // non-organizer
+        staffMember = StaffMember.loadByName("Luigi Bianchi");
+        staffMember.loadVacations();
 
-        // Marco: ID = 1, ruoli e vacanze null (vanno bene per test)
-        testMember = new StaffMember(1, "Marco", null, false);
+
     }
 
     @Test
@@ -48,12 +49,12 @@ public class GetVacationRequestTest {
         app.getUserManager().fakeLogin(organizer.getUserName());
 
         List<catering.businesslogic.staff.Vacation> vacations =
-                staffManager.getVacationRequest(testMember);
+                staffManager.getVacationRequest(staffMember);
 
         assertNotNull(vacations, "La lista di vacanze non dovrebbe essere nulla");
         assertTrue(vacations.size() >= 0, "La lista vacanze dovrebbe essere >= 0");
 
-        LOGGER.info("Vacanze trovate per Marco: " + vacations.size());
+        LOGGER.info("Vacanze trovate per Luigi: " + vacations.size());
     }
 
     @Test
@@ -74,7 +75,7 @@ public class GetVacationRequestTest {
         app.getUserManager().fakeLogin(nonOrganizer.getUserName());
 
         UseCaseLogicException ex = assertThrows(UseCaseLogicException.class, () -> {
-            staffManager.getVacationRequest(testMember);
+            staffManager.getVacationRequest(staffMember);
         });
 
         assertEquals("The User is not an organizer you can't visualize the vacation request of the staff member",

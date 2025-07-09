@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import catering.businesslogic.UseCaseLogicException;
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
@@ -154,6 +155,11 @@ public class StaffMember {
     }
 
     return sm;
-}
+    }
+
+    public void loadVacations() throws UseCaseLogicException {
+        this.vacations = Vacation.loadByStaffMemberId(this.id);
+    }
+
 
 }
