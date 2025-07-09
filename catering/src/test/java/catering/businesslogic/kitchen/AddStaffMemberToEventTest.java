@@ -95,9 +95,11 @@ public class AddStaffMemberToEventTest {
         // Aggiunta del membro
         StaffMember added = app.getStaffManager().addNewMemberForTheEvent(staffMember, testEvent);
 
-        assertThrows(UseCaseLogicException.class, () -> {
+         UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
             app.getStaffManager().addNewMemberForTheEvent(added, null);
-        }, "Should throw UseCaseLogicException if event is null");
+        });
+
+        assertEquals("Nessun evento selezionato per aggiungere componente al team", thrown.getMessage());
     }
 
     @Test

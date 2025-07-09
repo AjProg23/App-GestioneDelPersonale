@@ -124,8 +124,8 @@ public class StaffManager {
         try {
             LOGGER.info("Offering permanent job to staff member "+sm.getNominativo());
         sm.setPermanente(true);
-        this.notifyStaffMemberPermanentJob(sm);
         this.setCurrentStaffMember(sm);
+        this.notifyStaffMemberPermanentJob(sm);
         sm.updateStaffMember();
         return sm;
         } catch (Exception exception) {
@@ -149,8 +149,6 @@ public class StaffManager {
         if(sm==null){
             throw new UseCaseLogicException("Staff member not selected");
         }
-        setCurrentStaffMember(sm);
-
         List<Vacation> vacations=currentStaffMember.getVacations();
         return vacations;
     }

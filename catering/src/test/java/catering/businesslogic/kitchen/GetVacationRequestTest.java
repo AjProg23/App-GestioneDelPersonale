@@ -40,7 +40,6 @@ public class GetVacationRequestTest {
         staffMember = StaffMember.loadByName("Luigi Bianchi");
         staffMember.loadVacations();
 
-
     }
 
     @Test
