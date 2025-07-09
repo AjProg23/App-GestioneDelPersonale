@@ -61,28 +61,28 @@ public class AddStaffMemberToEventTest {
 
     @Test
     @Order(1)
-    void testAddMemberToEvent_Success() throws UseCaseLogicException {
-    // Login come organizer
-    app.getUserManager().fakeLogin(organizer.getUserName());
+        void testAddMemberToEvent_Success() throws UseCaseLogicException {
+        // Login come organizer
+        app.getUserManager().fakeLogin(organizer.getUserName());
 
-    // Carica il team dall'evento (già caricato correttamente da DB)
-    Team team = testEvent.getTeam();
-    assertNotNull(team, "Il team dell'evento dovrebbe essere presente");
+        // Carica il team dall'evento (già caricato correttamente da DB)
+        Team team = testEvent.getTeam();
+        assertNotNull(team, "Il team dell'evento dovrebbe essere presente");
 
-    // Rimuove Luigi se già presente per evitare falsi positivi nel test
-    if (team.getMembers().stream().anyMatch(m -> m.getId().equals(staffMember.getId()))) {
-        team.removeMember(staffMember.getId());
-    }
+        // Rimuove Luigi se già presente 
+        if (team.getMembers().stream().anyMatch(m -> m.getId().equals(staffMember.getId()))) {
+            team.removeMember(staffMember.getId());
+        }
 
-    // Aggiunge il membro Luigi Bianchi all'evento
-    StaffMember added = app.getStaffManager().addNewMemberForTheEvent(staffMember, testEvent);
+        // Aggiunge il membro Luigi Bianchi all'evento
+        StaffMember added = app.getStaffManager().addNewMemberForTheEvent(staffMember, testEvent);
 
-    // Verifica che l'aggiunta sia andata a buon fine
-    assertNotNull(added, "Il membro aggiunto non dovrebbe essere null");
-    assertEquals("Luigi Bianchi", added.getNominativo(), "Il nome del membro dovrebbe corrispondere");
-    assertTrue(team.getMembers().contains(added), "Il team dovrebbe contenere il nuovo membro");
+        // Verifica che l'aggiunta sia andata a buon fine
+        assertNotNull(added, "Il membro aggiunto non dovrebbe essere null");
+        assertEquals("Luigi Bianchi", added.getNominativo(), "Il nome del membro dovrebbe corrispondere");
+        assertTrue(team.getMembers().contains(added), "Il team dovrebbe contenere il nuovo membro");
 
-    LOGGER.info("Staff member aggiunto correttamente: " + added.getNominativo());
+        LOGGER.info("Staff member aggiunto correttamente: " + added.getNominativo());
     }
 
 
