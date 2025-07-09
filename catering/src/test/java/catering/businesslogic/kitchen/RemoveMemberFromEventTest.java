@@ -86,13 +86,16 @@ public class RemoveMemberFromEventTest {
 
     @Test
     @Order(2)
-        void testRemoveMember_NullStaffMember_Throws() throws UseCaseLogicException {
+    void testRemoveMember_NullIdStaffMember_Throws() throws UseCaseLogicException {
         app.getUserManager().fakeLogin(organizer.getUserName());
 
-        assertThrows(UseCaseLogicException.class, () -> {
+        UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
             app.getStaffManager().RemoveMemberFromEvent(testEvent.getTeam(), null);
         });
-    }   
+
+        assertEquals("Staff member is null — cannot remove from team", thrown.getMessage());
+    }
+  
 
     @Test
     @Order(3)
