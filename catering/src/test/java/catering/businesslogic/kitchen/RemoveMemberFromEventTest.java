@@ -62,7 +62,7 @@ public class RemoveMemberFromEventTest {
         if (team.getMembers().stream().noneMatch(m -> m.getId().equals(staffMember.getId()))) {
            
             // Aggiunge il membro Luigi Bianchi all'evento
-            StaffMember added = app.getStaffManager().addNewMemberForTheEvent(staffMember, testEvent);
+            app.getStaffManager().addNewMemberForTheEvent(staffMember, testEvent);
         }
 
         // Verifica che Luigi sia effettivamente nel team prima della rimozione
@@ -109,8 +109,31 @@ public class RemoveMemberFromEventTest {
             app.getStaffManager().RemoveMemberFromEvent(team, staffMember.getId());
         });
 
-        assertEquals("The User is not an organizer, you can't remove a member from the event", thrown.getMessage());
+        assertEquals("The User is not an organizer, you can't remove a member from the event", thrown.getMessage()); //per controllare meglio
 
+    }
+
+    @Test
+    @Order(4)
+    void testRemoveMember_TeamBeingModified_Throws() throws UseCaseLogicException {
+        // Login come organizer
+        app.getUserManager().fakeLogin(organizer.getUserName());
+
+        // Ottieni il team dall'evento
+        Team team = testEvent.getTeam();
+        assertNotNull(team, "Il team dell'evento dovrebbe essere presente");
+
+        // forza lo stato di modifica del team
+        team.setBeingModified(true);
+
+        UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
+            app.getStaffManager().RemoveMemberFromEvent(team, staffMember.getId());
+        });
+
+        assertEquals("Team is currently being modified. Cannot remove members.", thrown.getMessage());
+
+        // Ripristina lo stato per non impattare altri test 
+        team.setBeingModified(false);
     }
 
 

@@ -107,7 +107,7 @@ public class Team {
     public boolean isBeingModified() {
     // qui la logica che ritorna true se il team è in modifica 
     return this.isBeingModified; // esempio
-}
+    }
 
 
     public static Team loadById(int teamId) {
@@ -132,6 +132,11 @@ public class Team {
     }
     return teamHolder[0];
 }
+
+
+    public void setBeingModified(boolean modified) {
+        this.isBeingModified = modified;
+    }
 
 
 }
