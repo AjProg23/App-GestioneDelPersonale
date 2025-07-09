@@ -19,6 +19,7 @@ public class OfferPermanentJobTest {
     private static StaffManager staffManager;
     private static User organizer;
     private static User nonOrganizer;
+    private static StaffMember staffMember;
 
     @BeforeAll
     static void init() {
@@ -28,9 +29,9 @@ public class OfferPermanentJobTest {
 
     @BeforeEach
     void setup() {
-        // Carichiamo utenti manualmente (dovrebbero essere già in DB, ma qui li carichiamo con User.load)
         organizer = User.load("Francesca"); // organizer
         nonOrganizer = User.load("Antonio"); // non organizer
+        staffMember = StaffMember.loadByName("Luigi Bianchi");
     }
 
     @Test
@@ -38,12 +39,7 @@ public class OfferPermanentJobTest {
     void testOfferPermanentJob_Success() throws UseCaseLogicException {
         app.getUserManager().fakeLogin(organizer.getUserName());
 
-        // Creiamo StaffMember manualmente
-        List<String> ruoli = new ArrayList<>();
-        ruoli.add("Cuoco");
-        StaffMember sm = new StaffMember(null, "Marco", ruoli, false); // id=null per test
-
-        StaffMember updatedMember = staffManager.offerPermanentJob(sm);
+        StaffMember updatedMember = staffManager.offerPermanentJob(staffMember);
 
         assertNotNull(updatedMember, "StaffMember aggiornato non deve essere null");
         assertTrue(updatedMember.isPermanente(), "StaffMember deve essere permanente");
@@ -66,12 +62,9 @@ public class OfferPermanentJobTest {
     void testOfferPermanentJob_UserNotOrganizer_Throws() throws UseCaseLogicException {
         app.getUserManager().fakeLogin(nonOrganizer.getUserName());
 
-        List<String> ruoli = new ArrayList<>();
-        ruoli.add("Cuoco");
-        StaffMember sm = new StaffMember(null, "Marco", ruoli, false);
 
         UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
-            staffManager.offerPermanentJob(sm);
+            staffManager.offerPermanentJob(staffMember);
         });
 
         assertEquals("The User is not an organizer you can't offer a permanent job", thrown.getMessage());

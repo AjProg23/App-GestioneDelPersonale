@@ -1,8 +1,14 @@
 package catering.businesslogic.staff;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
@@ -116,4 +122,38 @@ public class StaffMember {
     private String toStringRuoli() {
         return String.join(", ", ruoli);
     }
+
+    public static StaffMember loadByName(String name) {
+    StaffMember sm = null;
+
+    String query = "SELECT * FROM StaffMember WHERE nominativo = ?";
+
+    try (Connection conn = PersistenceManager.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setString(1, name);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            Integer id = rs.getInt("id");
+            String nominativo = rs.getString("nominativo");
+            String ruoliStr = rs.getString("ruoli");
+            Boolean permanente = rs.getBoolean("permanente");
+
+            // Split dei ruoli su virgola e trim degli spazi
+            List<String> ruoli = Arrays.stream(ruoliStr.split(","))
+                                       .map(String::trim)
+                                       .collect(Collectors.toList());
+
+            sm = new StaffMember(id, nominativo, ruoli, permanente);
+        }
+
+        rs.close();
+    } catch (SQLException e) {
+        e.printStackTrace(); // o usa un logger se preferisci
+    }
+
+    return sm;
+}
+
 }
