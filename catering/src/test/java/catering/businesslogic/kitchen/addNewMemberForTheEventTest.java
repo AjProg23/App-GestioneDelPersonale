@@ -21,9 +21,9 @@ import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
 @TestMethodOrder(OrderAnnotation.class)
-public class AddStaffMemberToEventTest {
+public class addNewMemberForTheEventTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(AddStaffMemberToEventTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(addNewMemberForTheEventTest.class);
 
     private static CatERing app;
     private static User organizer;

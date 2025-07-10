@@ -87,7 +87,7 @@ public class StaffManager {
             throw new UseCaseLogicException("The User is not an organizer you can't add a member fot he event");
         }
         try {
-            LOGGER.info("Adding the staff member "+member.getNominativo()+ " to te event "+event.getName());
+            LOGGER.info("Adding the staff member "+member.getNominativo()+ " to the event "+event.getName());
             event.getTeam().addMember(member);
             this.setCurrentStaffMember(member);
             this.notifyStaffMemberAdded(member);

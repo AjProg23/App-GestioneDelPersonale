@@ -1,4 +1,4 @@
-package catering;
+package catering.businesslogic.kitchen;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.logging.Logger;
@@ -10,7 +10,6 @@ import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.event.Event;
 import catering.businesslogic.event.EventManager;
 import catering.businesslogic.event.SummaryScheme;
-import catering.businesslogic.kitchen.AddStaffMemberToEventTest;
 import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
@@ -18,7 +17,7 @@ import catering.util.LogManager;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CreateSummarySchemeTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(AddStaffMemberToEventTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(CreateSummarySchemeTest.class);
     private static CatERing app;
     private static EventManager eventManager;
     private static Event testEvent;
