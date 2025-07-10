@@ -73,10 +73,11 @@ public class Vacation {
         this.id = id;
     }
 
-    public static List<Vacation> loadByStaffMemberId(Integer staffMemberId) {
+   public static List<Vacation> loadByStaffMemberId(Integer staffMemberId) {
     List<Vacation> vacations = new ArrayList<>();
+    String sql = "SELECT id, start_date, end_date, approved FROM Vacation WHERE staff_member_id = ?";
 
-    String sql = "SELECT id, start_date, end_date FROM Vacation WHERE staff_member_id = ?";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     try (Connection conn = PersistenceManager.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -84,21 +85,14 @@ public class Vacation {
         ps.setInt(1, staffMemberId);
 
         try (ResultSet rs = ps.executeQuery()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String startDateStr = rs.getString("start_date");
                 String endDateStr = rs.getString("end_date");
+                Boolean approved = rs.getBoolean("approved");
 
-                // Parse da String a java.util.Date
-                java.util.Date parsedStartDate = sdf.parse(startDateStr);
-                java.util.Date parsedEndDate = sdf.parse(endDateStr);
-
-                // Conversione esplicita a java.sql.Date
-                java.sql.Date startDate = new java.sql.Date(parsedStartDate.getTime());
-                java.sql.Date endDate = new java.sql.Date(parsedEndDate.getTime());
-
-                Boolean approved = false;  // valore di default
+                java.sql.Date startDate = parseDateFlexible(startDateStr, sdf);
+                java.sql.Date endDate = parseDateFlexible(endDateStr, sdf);
 
                 Vacation vac = new Vacation(approved, endDate, id, startDate);
                 vacations.add(vac);
@@ -111,6 +105,24 @@ public class Vacation {
 
     return vacations;
     }
+
+
+    // Helper method to parse either "yyyy-MM-dd" or millisecond timestamp stored as string
+    private static java.sql.Date parseDateFlexible(String dateStr, SimpleDateFormat sdf) throws ParseException {
+        if (dateStr == null || dateStr.isEmpty()) return null;
+
+        // If numeric timestamp, parse as long millis
+        if (dateStr.matches("\\d+")) {
+            long millis = Long.parseLong(dateStr);
+            return new java.sql.Date(millis);
+        } else {
+            // Parse date string
+            java.util.Date parsed = sdf.parse(dateStr);
+            return new java.sql.Date(parsed.getTime());
+        }
+    }
+
+
 
 
     public void updateAcceptedVacationRequest() {
