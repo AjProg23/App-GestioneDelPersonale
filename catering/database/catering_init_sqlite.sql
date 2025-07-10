@@ -225,6 +225,7 @@ CREATE TABLE `Vacation` (
     `start_date` TEXT,
     `end_date` TEXT,
     `staff_member_id` INTEGER,
+    `approved` INTEGER DEFAULT 0,
     FOREIGN KEY (`staff_member_id`) REFERENCES `StaffMember`(`id`)
 );
 
@@ -1187,13 +1188,13 @@ VALUES (1, 3); -- Anna Verdi (manager) in wedding team
 
 
 -- Vacation 1: Mario Rossi's summer break
-INSERT INTO Vacation (start_date, end_date, staff_member_id)
-VALUES ('2023-07-15', '2023-07-30', 1);
+INSERT INTO Vacation (start_date, end_date, staff_member_id, approved)
+VALUES ('2023-07-15', '2023-07-30', 1,0);
 
 -- Vacation 2: Luigi Bianchi's winter break
-INSERT INTO Vacation (start_date, end_date, staff_member_id)
-VALUES ('2023-12-20', '2024-01-05', 2);
+INSERT INTO Vacation (start_date, end_date, staff_member_id, approved)
+VALUES ('2023-12-20', '2024-01-05', 2, 0);
 
 -- Vacation 3: Anna Verdi's short leave
-INSERT INTO Vacation (start_date, end_date, staff_member_id)
-VALUES ('2023-05-10', '2023-05-12', 3);
+INSERT INTO Vacation (start_date, end_date, staff_member_id, approved)
+VALUES ('2023-05-10', '2023-05-12', 3,0);

@@ -1,12 +1,30 @@
 -------------------------------------------------------------------------------
 Test set: catering.businesslogic.kitchen.AcceptVacationRequestTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.714 s <<< FAILURE! -- in catering.businesslogic.kitchen.AcceptVacationRequestTest
-catering.businesslogic.kitchen.AcceptVacationRequestTest.testGetVacation_UserNotOrganizer_Throws -- Time elapsed: 0.017 s <<< ERROR!
-catering.businesslogic.UseCaseLogicException: The User is not an organizer you can't visualize the vacation request of the staff member
-	at catering.businesslogic.staff.StaffManager.getVacationRequest(StaffManager.java:139)
-	at catering.businesslogic.kitchen.AcceptVacationRequestTest.testGetVacation_UserNotOrganizer_Throws(AcceptVacationRequestTest.java:82)
+Tests run: 3, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.684 s <<< FAILURE! -- in catering.businesslogic.kitchen.AcceptVacationRequestTest
+catering.businesslogic.kitchen.AcceptVacationRequestTest.testAcceptVacationRequest_VacationNull_Throws -- Time elapsed: 0.017 s <<< ERROR!
+java.lang.RuntimeException: Error loading vacations for staff member ID 2
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:109)
+	at catering.businesslogic.staff.StaffMember.loadVacations(StaffMember.java:161)
+	at catering.businesslogic.kitchen.AcceptVacationRequestTest.setup(AcceptVacationRequestTest.java:42)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.text.ParseException: Unparseable date: "1703026800000"
+	at java.base/java.text.DateFormat.parse(DateFormat.java:399)
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:94)
+	... 5 more
+
+catering.businesslogic.kitchen.AcceptVacationRequestTest.testGetVacation_UserNotOrganizer_Throws -- Time elapsed: 0.016 s <<< ERROR!
+java.lang.RuntimeException: Error loading vacations for staff member ID 2
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:109)
+	at catering.businesslogic.staff.StaffMember.loadVacations(StaffMember.java:161)
+	at catering.businesslogic.kitchen.AcceptVacationRequestTest.setup(AcceptVacationRequestTest.java:42)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.text.ParseException: Unparseable date: "1703026800000"
+	at java.base/java.text.DateFormat.parse(DateFormat.java:399)
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:94)
+	... 5 more
 
