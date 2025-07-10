@@ -237,7 +237,11 @@ public class EventManager {
      * @throws UseCaseLogicException            if no event is selected
      */
     public SummaryScheme creatSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
+        User u=CatERing.getInstance().getUserManager().getCurrentUser();
         Event currEvent= this.selectedEvent;
+        if (!u.isOrganizer()) {
+            throw new UseCaseLogicException("The User is not an organizer you can't accept the vacation request of the staff member");
+        }
         if(currEvent==null){
             throw new UseCaseLogicException("Nessun evento selezionato di cui creare il summary scheme");
         }

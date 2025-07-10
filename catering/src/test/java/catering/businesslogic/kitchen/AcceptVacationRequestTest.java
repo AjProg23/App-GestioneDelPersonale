@@ -71,19 +71,19 @@ public class AcceptVacationRequestTest {
             staffManager.acceptVacationRequest(null);
         });
 
-        assertEquals("Staff member not selected", ex.getMessage());
+        assertEquals("Vacation cannot be null ", ex.getMessage());
     }
 
     @Test
     @Order(3)
     void testGetVacationRequest_NonOrganizer_Throws() throws UseCaseLogicException {
-    app.getUserManager().fakeLogin(nonOrganizer.getUserName());
+        app.getUserManager().fakeLogin(nonOrganizer.getUserName());
 
-    UseCaseLogicException ex = assertThrows(UseCaseLogicException.class, () -> {
-        staffManager.getVacationRequest(staffMember);
-    });
+        UseCaseLogicException ex = assertThrows(UseCaseLogicException.class, () -> {
+            staffManager.getVacationRequest(staffMember); //if user isnt Organizer then he cannot get vacation requests thus cant accept vacation request
+        });
 
-    assertEquals("The User is not an organizer you can't visualize the vacation request of the staff member", ex.getMessage());
+        assertEquals("The User is not an organizer you can't visualize the vacation request of the staff member", ex.getMessage());
     }
 
 }  

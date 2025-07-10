@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.SummarySheetTest" time="0.773" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.SummarySheetTest" time="0.633" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire3053823726897476080\surefirebooter-20250710111035498_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire3053823726897476080 2025-07-10T11-10-35_306-jvmRun1 surefire-20250710111035498_1tmp surefire_0-20250710111035498_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire12806385762601069783\surefirebooter-20250710130619783_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire12806385762601069783 2025-07-10T13-06-19_588-jvmRun1 surefire-20250710130619783_1tmp surefire_0-20250710130619783_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="c:\Users\ahed_\Desktop\SAS\catering\target\test-classes;c:\Users\ahed_\Desktop\SAS\catering\target\classes;C:\Users\ahed_\.m2\repository\org\xerial\sqlite-jdbc\3.49.1.0\sqlite-jdbc-3.49.1.0.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\ahed_\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire3053823726897476080\surefirebooter-20250710111035498_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire12806385762601069783\surefirebooter-20250710130619783_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -58,12 +58,12 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testSummarySheetCreation" classname="catering.businesslogic.kitchen.SummarySheetTest" time="0.141">
-    <system-err><![CDATA[2025-07-10 11:10:38.674 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-10 11:10:38.760 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-10 11:10:38.764 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
-2025-07-10 11:10:38.765 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Testing summary sheet creation
-2025-07-10 11:10:38.815 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Created summary sheet: 
+  <testcase name="testSummarySheetCreation" classname="catering.businesslogic.kitchen.SummarySheetTest" time="0.146">
+    <system-err><![CDATA[2025-07-10 13:06:22.908 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
+2025-07-10 13:06:23.007 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-10 13:06:23.011 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+2025-07-10 13:06:23.011 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Testing summary sheet creation
+2025-07-10 13:06:23.056 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Created summary sheet: 
 
 SummarySheet [ID: 0, Owner: Antonio, Service: Pranzo Buffet Aziendale, Tasks: 9, Assignments: 0]
 
@@ -79,13 +79,13 @@ Tasks:
   9. [ ] Gelato Artigianale
 ]]></system-err>
   </testcase>
-  <testcase name="testTaskAssignment" classname="catering.businesslogic.kitchen.SummarySheetTest" time="0.162">
-    <system-err><![CDATA[2025-07-10 11:10:38.915 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-10 11:10:38.918 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
-2025-07-10 11:10:38.918 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Testing task assignment to cook
-2025-07-10 11:10:38.965 [INFO] catering.businesslogic.shift.Shift: Added booking for user Luca to shift ID 0
-2025-07-10 11:10:38.977 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Successfully assigned task. Assignment details: Task: Caprese, Cook: Luca, Shift: 2025-04-07 09:00:00-14:00:00
-2025-07-10 11:10:38.978 [INFO] catering.businesslogic.kitchen.SummarySheetTest: 
+  <testcase name="testTaskAssignment" classname="catering.businesslogic.kitchen.SummarySheetTest" time="0.135">
+    <system-err><![CDATA[2025-07-10 13:06:23.137 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-10 13:06:23.139 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+2025-07-10 13:06:23.140 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Testing task assignment to cook
+2025-07-10 13:06:23.180 [INFO] catering.businesslogic.shift.Shift: Added booking for user Luca to shift ID 0
+2025-07-10 13:06:23.192 [INFO] catering.businesslogic.kitchen.SummarySheetTest: Successfully assigned task. Assignment details: Task: Caprese, Cook: Luca, Shift: 2025-04-07 09:00:00-14:00:00
+2025-07-10 13:06:23.192 [INFO] catering.businesslogic.kitchen.SummarySheetTest: 
 
 SummarySheet [ID: 0, Owner: Antonio, Service: Pranzo Buffet Aziendale, Tasks: 9, Assignments: 1]
 

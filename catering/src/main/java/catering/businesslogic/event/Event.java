@@ -27,6 +27,7 @@ public class Event {
     private Team team;
     private SummaryScheme summaryScheme;
     private ArrayList<Service> services;
+    
 
     public Event() {
         services = new ArrayList<>();

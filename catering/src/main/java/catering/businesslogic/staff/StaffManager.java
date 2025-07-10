@@ -33,7 +33,7 @@ public class StaffManager {
             throw new UseCaseLogicException("The User is not an organizer you can't accept the vacation request of the staff member");
         }
         if(v==null){
-            throw new UseCaseLogicException("Staff member not selected");
+            throw new UseCaseLogicException("Vacation cannot be null ");
         }
         try {
         LOGGER.info("Accepting Vacation Request "+v.getId());
