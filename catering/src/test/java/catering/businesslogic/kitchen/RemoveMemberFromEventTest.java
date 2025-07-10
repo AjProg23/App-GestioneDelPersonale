@@ -1,6 +1,9 @@
 package catering.businesslogic.kitchen;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ConcurrentModificationException;
+
 import org.junit.jupiter.api.*;
 import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
@@ -129,7 +132,7 @@ public class RemoveMemberFromEventTest {
         // forza lo stato di modifica del team
         team.setBeingModified(true);
 
-        UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
+        ConcurrentModificationException thrown = assertThrows(ConcurrentModificationException.class, () -> {
             app.getStaffManager().RemoveMemberFromEvent(team, staffMember.getId());
         });
 
