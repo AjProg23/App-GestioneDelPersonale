@@ -173,7 +173,9 @@ public class StaffManager {
         if (removed != null) {
             notifyMemberRemoved(team, removed.getId());
             return team; // o removed, in base alla tua scelta
-        } 
+        } else {
+            throw new UseCaseLogicException("Staff member was not found in the team.");
+        }
 
     }
         
