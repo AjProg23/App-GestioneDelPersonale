@@ -228,7 +228,9 @@ public class EventManager {
     }
 
     /**
-     * Create a summare scheme to associate top the current event
+     * This method can only be used by users with the "organizer" role. It requires that an event
+    * is currently selected in the EventManager. The created summary scheme includes
+    * information about staff requirements, transportation, service type, and client-specific requests.
      * 
      * @param nrOfStaffMembersRequired          The number of staff reqwuired for the event 
      * @param transportationNeeds               The Trasportqation nedded fot the event

@@ -85,26 +85,29 @@ public class CreateSummarySchemeTest {
     void testCreateSummaryScheme_NoEventSelected_Throws() throws UseCaseLogicException {
          app.getUserManager().fakeLogin(organizer.getUserName());
 
-        eventManager.setSelectedEvent(null); // manually unset event
+        eventManager.setSelectedEvent(null); 
 
-        UseCaseLogicException ex = assertThrows(UseCaseLogicException.class, () -> {
+        UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
             eventManager.createSummaryScheme(3, "none", "plated", "gluten free");
         });
 
-        assertEquals("Nessun evento selezionato di cui creare il summary scheme", ex.getMessage());
+        assertEquals("Nessun evento selezionato di cui creare il summary scheme", thrown.getMessage());
     }
 
     @Test
     @Order(3)
     void testCreateSummaryScheme_NonOrganizer_Throws() throws UseCaseLogicException {
         app.getUserManager().fakeLogin(nonOrganizer.getUserName());
+
+        eventManager = app.getEventManager();
         eventManager.setSelectedEvent(testEvent);
 
-        UseCaseLogicException ex = assertThrows(UseCaseLogicException.class, () -> {
+        UseCaseLogicException thrown = assertThrows(UseCaseLogicException.class, () -> {
             eventManager.createSummaryScheme(2, "bus", "buffet", "vegan");
         });
 
         assertEquals("The User is not an organizer you can't accept the vacation request of the staff member",
-                     ex.getMessage());
+                    thrown.getMessage());
     }
+
 }
