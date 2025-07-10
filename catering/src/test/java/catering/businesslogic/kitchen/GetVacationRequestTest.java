@@ -39,7 +39,6 @@ public class GetVacationRequestTest {
         nonOrganizer = User.load("Antonio"); // non-organizer
         staffMember = StaffMember.loadByName("Luigi Bianchi");
         staffMember.loadVacations();
-
     }
 
     @Test

@@ -8,6 +8,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -82,10 +84,20 @@ public class Vacation {
         ps.setInt(1, staffMemberId);
 
         try (ResultSet rs = ps.executeQuery()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             while (rs.next()) {
                 int id = rs.getInt("id");
-                Date startDate = rs.getDate("start_date");
-                Date endDate = rs.getDate("end_date");
+                String startDateStr = rs.getString("start_date");
+                String endDateStr = rs.getString("end_date");
+
+                // Parse da String a java.util.Date
+                java.util.Date parsedStartDate = sdf.parse(startDateStr);
+                java.util.Date parsedEndDate = sdf.parse(endDateStr);
+
+                // Conversione esplicita a java.sql.Date
+                java.sql.Date startDate = new java.sql.Date(parsedStartDate.getTime());
+                java.sql.Date endDate = new java.sql.Date(parsedEndDate.getTime());
+
                 Boolean approved = false;  // valore di default
 
                 Vacation vac = new Vacation(approved, endDate, id, startDate);
@@ -93,12 +105,13 @@ public class Vacation {
             }
         }
 
-    } catch (SQLException e) {
+    } catch (SQLException | ParseException e) {
         throw new RuntimeException("Error loading vacations for staff member ID " + staffMemberId, e);
     }
 
     return vacations;
     }
+
 
     public void updateAcceptedVacationRequest() {
         if (id == 0) {
