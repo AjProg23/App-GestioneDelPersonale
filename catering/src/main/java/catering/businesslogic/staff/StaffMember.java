@@ -1,9 +1,16 @@
 package catering.businesslogic.staff;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import catering.businesslogic.UseCaseLogicException;
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
@@ -116,4 +123,68 @@ public class StaffMember {
     private String toStringRuoli() {
         return String.join(", ", ruoli);
     }
+
+    public static StaffMember loadByName(String name) {
+    StaffMember sm = null;
+
+    String query = "SELECT * FROM StaffMember WHERE nominativo = ?";
+
+    try (Connection conn = PersistenceManager.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setString(1, name);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            Integer id = rs.getInt("id");
+            String nominativo = rs.getString("nominativo");
+            String ruoliStr = rs.getString("ruoli");
+            Boolean permanente = rs.getBoolean("permanente");
+
+            // Split dei ruoli su virgola e trim degli spazi
+            List<String> ruoli = Arrays.stream(ruoliStr.split(","))
+                                       .map(String::trim)
+                                       .collect(Collectors.toList());
+
+            sm = new StaffMember(id, nominativo, ruoli, permanente);
+        }
+
+        rs.close();
+    } catch (SQLException e) {
+        e.printStackTrace(); // o usa un logger se preferisci
+    }
+
+    return sm;
+    }
+
+    public void loadVacations() throws UseCaseLogicException {
+        this.vacations = Vacation.loadByStaffMemberId(this.id);
+    }
+
+    public static List<StaffMember> loadByTeamId(int teamId) {
+    List<StaffMember> members = new ArrayList<>();
+
+    String query = "SELECT sm.id, sm.nominativo, sm.ruoli, sm.permanente " +
+                   "FROM StaffMember sm " +
+                   "JOIN Team_StaffMember tsm ON sm.id = tsm.staff_member_id " +
+                   "WHERE tsm.team_id = ?";
+
+    PersistenceManager.executeQuery(query, rs -> {
+        int id = rs.getInt("id");
+        String nominativo = rs.getString("nominativo");
+        String ruoliStr = rs.getString("ruoli");
+        boolean permanente = rs.getBoolean("permanente");
+
+        List<String> ruoli = new ArrayList<>();
+        if (ruoliStr != null && !ruoliStr.isEmpty()) {
+            ruoli = Arrays.asList(ruoliStr.split(",\\s*"));
+        }
+
+        StaffMember sm = new StaffMember(id, nominativo, ruoli, permanente);
+        members.add(sm);
+    }, teamId);
+
+    return members;
+ }
+
 }

@@ -1,0 +1,5 @@
+catering\businesslogic\kitchen\AddStaffMemberToEventTest.class
+catering\businesslogic\kitchen\OfferPermanentJobTest.class
+catering\businesslogic\kitchen\SummarySheetTest.class
+catering\businesslogic\kitchen\RemoveMemberFromEventTest.class
+catering\businesslogic\kitchen\GetVacationRequestTest.class

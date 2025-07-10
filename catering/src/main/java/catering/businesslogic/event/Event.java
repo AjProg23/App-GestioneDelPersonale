@@ -202,45 +202,53 @@ public class Event {
     }
 
     private static Event loadEventByQuery(String query, Object param) {
-        final Event[] eventHolder = new Event[1];
-        final boolean[] eventFound = new boolean[1];
+    final Event[] eventHolder = new Event[1];
+    final boolean[] eventFound = new boolean[1];
 
-        PersistenceManager.executeQuery(query, new ResultHandler() {
-            @Override
-            public void handle(ResultSet rs) throws SQLException {
-                eventFound[0] = true;
+    PersistenceManager.executeQuery(query, new ResultHandler() {
+        @Override
+        public void handle(ResultSet rs) throws SQLException {
+            eventFound[0] = true;
 
-                Event e = new Event();
-                e.id = rs.getInt("id");
-                e.name = rs.getString("name");
-                e.dateStart = DateUtils.getDateFromResultSet(rs, "date_start");
-                e.dateEnd = DateUtils.getDateFromResultSet(rs, "date_end");
+            Event e = new Event();
+            e.id = rs.getInt("id");
+            e.name = rs.getString("name");
+            e.dateStart = DateUtils.getDateFromResultSet(rs, "date_start");
+            e.dateEnd = DateUtils.getDateFromResultSet(rs, "date_end");
 
-                try {
-                    e.chef = User.load(rs.getInt("chef_id"));
-                } catch (Exception ex) {
-                    e.chef = null;
-                }
-
-                eventHolder[0] = e;
-            }
-        }, param);
-
-        if (!eventFound[0]) {
-            return null;
-        }
-
-        Event result = eventHolder[0];
-        if (result != null) {
             try {
-                result.services = Service.loadServicesForEvent(result.id);
+                e.chef = User.load(rs.getInt("chef_id"));
             } catch (Exception ex) {
-                result.services = new ArrayList<>();
+                e.chef = null;
             }
-        }
 
-        return result;
+            // Leggo team_id e carico il team
+            int teamId = rs.getInt("team_id");
+            if (!rs.wasNull()) {
+                Team team = Team.loadById(teamId);
+                e.setTeam(team);
+            }
+
+            eventHolder[0] = e;
+        }
+    }, param);
+
+    if (!eventFound[0]) {
+        return null;
     }
+
+    Event result = eventHolder[0];
+    if (result != null) {
+        try {
+            result.services = Service.loadServicesForEvent(result.id);
+        } catch (Exception ex) {
+            result.services = new ArrayList<>();
+        }
+    }
+
+    return result;
+    }
+
 
     @Override
     public String toString() {

@@ -225,6 +225,7 @@ CREATE TABLE `Vacation` (
     `start_date` TEXT,
     `end_date` TEXT,
     `staff_member_id` INTEGER,
+    `approved` INTEGER DEFAULT 0,
     FOREIGN KEY (`staff_member_id`) REFERENCES `StaffMember`(`id`)
 );
 
@@ -1081,6 +1082,25 @@ VALUES ('Tech Conference Lunch', '2023-07-20 11:30:00', '2023-07-20 14:00:00', 1
 INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
 VALUES ('Emma''s 10th Birthday', '2023-08-05 12:00:00', '2023-08-05 17:00:00', 2, 3, 3);
 
+-- Gala
+INSERT INTO Events (name, date_start, date_end, chef_id, team_id, summary_scheme_id)
+VALUES ('Gala Aziendale Annuale', '2023-08-08 12:00:00', '2023-08-09 17:00:00', 5, 3, 3);
+
+-- Turni generici (non collegati direttamente ad eventi)
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-06-15', '14:00:00', '16:00:00');
+
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-06-15', '18:00:00', '21:00:00');
+
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-07-20', '10:00:00', '11:30:00');
+
+INSERT INTO Shifts (date, start_time, end_time)
+VALUES ('2023-08-05', '15:00:00', '16:30:00');
+
+
+
 -- Create two services for this event
 -- First service (lunch): assigned to chef Antonio (ID 5) with the existing menu (ID 1)
 INSERT INTO Services (
@@ -1092,7 +1112,7 @@ INSERT INTO Services (
     time_end, 
     location
 ) VALUES (
-    1,                          -- Event ID
+    4,                          -- Event ID
     'Pranzo Buffet Aziendale',  -- Service name in Italian
     1,                          -- Approved menu (same as proposed)
     date('2025-06-15'),         -- Service date
@@ -1111,7 +1131,7 @@ INSERT INTO Services (
     time_end, 
     location
 ) VALUES (
-    1,                          -- Event ID
+    4,                          -- Event ID
     'Cena di Gala',             -- Service name in Italian
     0,                          -- Not approved yet (0)
     date('2025-06-15'),         -- Service date
@@ -1168,13 +1188,13 @@ VALUES (1, 3); -- Anna Verdi (manager) in wedding team
 
 
 -- Vacation 1: Mario Rossi's summer break
-INSERT INTO Vacation (start_date, end_date, staff_member_id)
-VALUES ('2023-07-15', '2023-07-30', 1);
+INSERT INTO Vacation (start_date, end_date, staff_member_id, approved)
+VALUES ('2023-07-15', '2023-07-30', 1,0);
 
 -- Vacation 2: Luigi Bianchi's winter break
-INSERT INTO Vacation (start_date, end_date, staff_member_id)
-VALUES ('2023-12-20', '2024-01-05', 2);
+INSERT INTO Vacation (start_date, end_date, staff_member_id, approved)
+VALUES ('2023-12-20', '2024-01-05', 2, 0);
 
 -- Vacation 3: Anna Verdi's short leave
-INSERT INTO Vacation (start_date, end_date, staff_member_id)
-VALUES ('2023-05-10', '2023-05-12', 3);
+INSERT INTO Vacation (start_date, end_date, staff_member_id, approved)
+VALUES ('2023-05-10', '2023-05-12', 3,0);

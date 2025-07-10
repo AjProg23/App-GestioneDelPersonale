@@ -13,6 +13,7 @@ public class Team {
 
     private Integer id;
     private List<StaffMember> members = new ArrayList<>();
+    private boolean isBeingModified;
 
     public Team() { }
 
@@ -50,24 +51,29 @@ public class Team {
         LOGGER.info("Team creato con ID=" + id + " e " + members.size() + " membri.");
     }
 
-    /**
-     * Aggiunge un membro al team sia in memoria sia in DB (se già salvato).
-     * @param member il membro da aggiungere
-     * @return false if there's a member selected, true if the operation is successful
-     */
     public boolean addMember(StaffMember member) {
-        if (member == null) return false;
-        members.add(member);
+    if (member == null) return false;
 
-        if (id != null) {
-            String linkSql = "INSERT INTO Team_StaffMember (team_id, staff_member_id) VALUES (?, ?)";
-            PersistenceManager.executeUpdate(linkSql, id, member.getId());
-            LOGGER.info("Aggiunto al team (DB) staffMember_id=" + member.getId());
-        }
+    // Rimuovi dal DB se esiste già (per evitare violazione UNIQUE)
+    if (id != null) {
+        String deleteSql = "DELETE FROM Team_StaffMember WHERE team_id = ? AND staff_member_id = ?";
+        PersistenceManager.executeUpdate(deleteSql, id, member.getId());
 
-        LOGGER.info("Aggiunto in memoria al team: " + member.getNominativo());
-        return true;
+        String insertSql = "INSERT INTO Team_StaffMember (team_id, staff_member_id) VALUES (?, ?)";
+        PersistenceManager.executeUpdate(insertSql, id, member.getId());
+        LOGGER.info("Aggiunto al team (DB) staffMember_id=" + member.getId());
     }
+
+    // Aggiungi in memoria solo se non presente
+    if (!members.contains(member)) {
+        members.add(member);
+        LOGGER.info("Aggiunto in memoria al team: " + member.getNominativo());
+    }
+
+    return true;
+    }
+
+
 
     /**
      * Rimuove un membro dal team: in memoria e nella tabella di join.
@@ -91,4 +97,46 @@ public class Team {
         LOGGER.warning("Impossibile rimuovere: staffMember_id=" + memberId + " non presente.");
         return false;
     }
+
+
+    public void setId(int i) {
+        this.id=i;
+    }
+
+
+    public boolean isBeingModified() {
+    // qui la logica che ritorna true se il team è in modifica 
+    return this.isBeingModified; // esempio
+    }
+
+
+    public static Team loadById(int teamId) {
+    final Team[] teamHolder = new Team[1];
+    final boolean[] found = new boolean[1];
+
+    String query = "SELECT * FROM Team WHERE id = ?";
+
+    PersistenceManager.executeQuery(query, rs -> {
+        found[0] = true;
+        Team t = new Team();
+        t.id = rs.getInt("id");
+
+        // Carichiamo i membri del team
+        t.members = StaffMember.loadByTeamId(t.id);
+
+        teamHolder[0] = t;
+    }, teamId);
+
+    if (!found[0]) {
+        return null;
+    }
+    return teamHolder[0];
+}
+
+
+    public void setBeingModified(boolean modified) {
+        this.isBeingModified = modified;
+    }
+
+
 }

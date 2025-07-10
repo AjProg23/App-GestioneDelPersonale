@@ -48,6 +48,14 @@ public class SummaryScheme {
         this.clientRequest = clientRequest;
     }
 
+    //costruttore che gestisce caso transportationNeeds fosse null
+    public SummaryScheme( int nrOfStaffMembersRequired, String typeOfService,
+            String clientRequest) {
+        this.nrOfStaffMembersRequired = nrOfStaffMembersRequired;
+        this.typeOfService = typeOfService;
+        this.clientRequest = clientRequest;
+    }
+
     // Database operations
     public void saveNewSummaryScheme() {
         String query = "INSERT INTO SummaryScheme (nr_of_staff_members_required, transportation_needs, type_of_service, client_request) VALUES (?, ?, ?, ?)";
