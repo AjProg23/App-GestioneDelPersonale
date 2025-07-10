@@ -246,7 +246,7 @@ public class EventManager {
             throw new UseCaseLogicException("Nessun evento selezionato di cui creare il summary scheme");
         }
         try {
-            LOGGER.info("Creating new summaryScheme for event" + selectedEvent.getName() + "'");
+            LOGGER.info("Creating new summaryScheme for event:" + selectedEvent.getName() + "'");
         SummaryScheme ss=new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
         ss.saveNewSummaryScheme();
         selectedEvent.addSummaryScheme(ss);

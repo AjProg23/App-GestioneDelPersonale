@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.467" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.441" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire15530520101070097560\surefirebooter-20250710144419325_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire15530520101070097560 2025-07-10T14-44-19_146-jvmRun1 surefire-20250710144419325_1tmp surefire_0-20250710144419325_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire15111570688936801418\surefirebooter-20250710151736862_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire15111570688936801418 2025-07-10T15-17-36_679-jvmRun1 surefire-20250710151736862_1tmp surefire_0-20250710151736862_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="c:\Users\ahed_\Desktop\SAS\catering\target\test-classes;c:\Users\ahed_\Desktop\SAS\catering\target\classes;C:\Users\ahed_\.m2\repository\org\xerial\sqlite-jdbc\3.49.1.0\sqlite-jdbc-3.49.1.0.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\ahed_\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire15530520101070097560\surefirebooter-20250710144419325_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire15111570688936801418\surefirebooter-20250710151736862_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -58,29 +58,29 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testAddMemberToEvent_Success" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.05">
-    <system-err><![CDATA[2025-07-10 14:44:21.020 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-10 14:44:21.054 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-10 14:44:21.057 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
-2025-07-10 14:44:21.060 [INFO] catering.businesslogic.staff.Team: Rimosso dal DB staffMember_id=2
-2025-07-10 14:44:21.061 [INFO] catering.businesslogic.staff.Team: Rimosso in memoria staffMember_id=2
-2025-07-10 14:44:21.062 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Luigi Bianchi to te event Smith Wedding
-2025-07-10 14:44:21.068 [INFO] catering.businesslogic.staff.Team: Aggiunto al team (DB) staffMember_id=2
-2025-07-10 14:44:21.068 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Luigi Bianchi
-2025-07-10 14:44:21.069 [INFO] catering.businesslogic.kitchen.AddStaffMemberToEventTest: Staff member aggiunto correttamente: Luigi Bianchi
+  <testcase name="testAddMemberToEvent_Success" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.057">
+    <system-err><![CDATA[2025-07-10 15:17:38.504 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
+2025-07-10 15:17:38.544 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-10 15:17:38.547 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-10 15:17:38.552 [INFO] catering.businesslogic.staff.Team: Rimosso dal DB staffMember_id=2
+2025-07-10 15:17:38.553 [INFO] catering.businesslogic.staff.Team: Rimosso in memoria staffMember_id=2
+2025-07-10 15:17:38.554 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Luigi Bianchi to te event Smith Wedding
+2025-07-10 15:17:38.560 [INFO] catering.businesslogic.staff.Team: Aggiunto al team (DB) staffMember_id=2
+2025-07-10 15:17:38.561 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Luigi Bianchi
+2025-07-10 15:17:38.561 [INFO] catering.businesslogic.kitchen.AddStaffMemberToEventTest: Staff member aggiunto correttamente: Luigi Bianchi
 ]]></system-err>
   </testcase>
-  <testcase name="testAddMember_NullEvent_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.054">
-    <system-err><![CDATA[2025-07-10 14:44:21.107 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-10 14:44:21.112 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
-2025-07-10 14:44:21.112 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Luigi Bianchi to te event Smith Wedding
-2025-07-10 14:44:21.125 [INFO] catering.businesslogic.staff.Team: Aggiunto al team (DB) staffMember_id=2
-2025-07-10 14:44:21.126 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Luigi Bianchi
+  <testcase name="testAddMember_NullEvent_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.028">
+    <system-err><![CDATA[2025-07-10 15:17:38.576 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-10 15:17:38.579 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-10 15:17:38.579 [INFO] catering.businesslogic.staff.StaffManager: Adding the staff member Luigi Bianchi to te event Smith Wedding
+2025-07-10 15:17:38.589 [INFO] catering.businesslogic.staff.Team: Aggiunto al team (DB) staffMember_id=2
+2025-07-10 15:17:38.589 [INFO] catering.businesslogic.staff.Team: Aggiunto in memoria al team: Luigi Bianchi
 ]]></system-err>
   </testcase>
-  <testcase name="testAddMember_NotOrganizer_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.025">
-    <system-err><![CDATA[2025-07-10 14:44:21.148 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-10 14:44:21.151 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+  <testcase name="testAddMember_NotOrganizer_Throws" classname="catering.businesslogic.kitchen.AddStaffMemberToEventTest" time="0.022">
+    <system-err><![CDATA[2025-07-10 15:17:38.609 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-10 15:17:38.611 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
 ]]></system-err>
   </testcase>
 </testsuite>

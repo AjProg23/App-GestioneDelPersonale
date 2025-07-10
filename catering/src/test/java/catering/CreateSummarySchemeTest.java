@@ -34,6 +34,8 @@ public class CreateSummarySchemeTest {
 
     @BeforeEach
     void setup() throws UseCaseLogicException {
+        eventManager = app.getEventManager();
+
         organizer = User.load("Francesca"); // organizer user
         assertNotNull(organizer, "Organizer user should be loaded");
         assertTrue(organizer.isOrganizer(), "User should be an organizer");
@@ -56,9 +58,17 @@ public class CreateSummarySchemeTest {
          // Login come organizer
         app.getUserManager().fakeLogin(organizer.getUserName());
 
-        SummaryScheme ss = testEvent.getSummaryScheme();
-        assertNotNull(ss, "SummaryScheme should be loaded from DB");
+        app.getEventManager().setSelectedEvent(testEvent);
+        assertNotNull(eventManager.getSelectedEvent(), "Selected event should be set");
 
+        int nrOfStaffMembersRequired = 8;
+        String transportationNeeds = "Shuttle bus from Porta Nuova Turin station to the place of destination";
+        String typeOfService = "Wedding catering";
+        String clientRequest = "Vegetarian menu required, gluten-free options";    
+
+        SummaryScheme ss = eventManager.createSummaryScheme(
+        nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
+        assertNotNull(ss, "SummaryScheme should be loaded from DB");
         assertEquals(8, ss.getNrOfStaffMembersRequired(), "Staff required should match");
         assertEquals("Shuttle bus from Porta Nuova Turin station to the place of destination", 
                     ss.getTransportationNeeds(), "Transportation needs should match");
@@ -66,15 +76,15 @@ public class CreateSummarySchemeTest {
         assertEquals("Vegetarian menu required, gluten-free options", 
                     ss.getClientRequest(), "Client request should match");
 
-        LOGGER.info("Loaded SummaryScheme: " + ss);
+
+        LOGGER.info("Created SummaryScheme: " + ss);
     }
-
-
-
 
     @Test
     @Order(2)
     void testCreateSummaryScheme_NoEventSelected_Throws() throws UseCaseLogicException {
+         app.getUserManager().fakeLogin(organizer.getUserName());
+
         eventManager.setSelectedEvent(null); // manually unset event
 
         UseCaseLogicException ex = assertThrows(UseCaseLogicException.class, () -> {

@@ -139,15 +139,24 @@ public class Event {
     }
 
     public void updateEvent() {
-        String query = "UPDATE Events SET name = ?, date_start = ?, date_end = ?, chef_id = ? team=?, summary_scheme=? WHERE id = ?";
+        String query = "UPDATE Events SET name = ?, date_start = ?, date_end = ?, chef_id = ?, team_id = ?, summary_scheme_id = ? WHERE id = ?";
 
         Long startTimestamp = (dateStart != null) ? dateStart.getTime() : null;
         Long endTimestamp = (dateEnd != null) ? dateEnd.getTime() : null;
 
-        PersistenceManager.executeUpdate(query, name, startTimestamp, endTimestamp, getChefId(), team.getId(),summaryScheme.getId(), id);
+        PersistenceManager.executeUpdate(query,
+            name,
+            startTimestamp,
+            endTimestamp,
+            getChefId(),
+            team.getId(),
+            summaryScheme.getId(),
+            id
+        );
 
         LOGGER.info("Updated event: " + name + " (ID: " + id + ")");
     }
+
 
     public boolean deleteEvent() {
         // Delete all services first
