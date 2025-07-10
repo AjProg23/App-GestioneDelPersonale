@@ -73,10 +73,10 @@ public class RemoveMemberFromEventTest {
             "Il team dovrebbe contenere Luigi prima della rimozione");
 
         // Rimuove Luigi dal team
-        Boolean removed = app.getStaffManager().RemoveMemberFromEvent(team, staffMember.getId());
+        Team updatedTeam = app.getStaffManager().RemoveMemberFromEvent(team, staffMember.getId());
 
         // Verifica che la rimozione sia andata a buon fine
-        assertTrue(removed, "Il membro dovrebbe essere rimosso con successo");
+        assertNotNull(updatedTeam, "Il membro dovrebbe essere rimosso con successo");
 
         // Verifica che Luigi non sia più nel team dopo la rimozione
         assertFalse(team.getMembers().stream().anyMatch(m -> m.getId().equals(staffMember.getId())), 

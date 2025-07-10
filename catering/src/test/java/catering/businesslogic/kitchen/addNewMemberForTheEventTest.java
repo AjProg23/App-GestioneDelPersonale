@@ -71,7 +71,7 @@ public class addNewMemberForTheEventTest {
 
         // Rimuove Luigi se già presente 
         if (team.getMembers().stream().anyMatch(m -> m.getId().equals(staffMember.getId()))) {
-            team.removeMember(staffMember.getId());
+            team.removeMemberById(staffMember.getId());
         }
 
         // Aggiunge il membro Luigi Bianchi all'evento

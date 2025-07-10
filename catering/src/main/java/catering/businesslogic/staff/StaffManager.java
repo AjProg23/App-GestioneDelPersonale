@@ -154,7 +154,7 @@ public class StaffManager {
      * @throws UseCaseLogicException            if the user is not an organizer
      * @return the vacations of the staff member
      */
-    public Boolean RemoveMemberFromEvent(Team team, Integer idStaffMember)throws UseCaseLogicException{
+    public Team RemoveMemberFromEvent(Team team, Integer idStaffMember)throws UseCaseLogicException{
         User u=CatERing.getInstance().getUserManager().getCurrentUser();
         if (!u.isOrganizer()) {
             throw new UseCaseLogicException("The User is not an organizer, you can't remove a member from the event");
@@ -169,12 +169,12 @@ public class StaffManager {
             throw new ConcurrentModificationException("Team is currently being modified. Cannot remove members.");
         }
         
-        Boolean result=team.removeMember(idStaffMember);
-        if(result){
-            notifyMemberRemoved(team,idStaffMember);
+        StaffMember removed = team.removeMemberById(idStaffMember);
+        if (removed != null) {
+            notifyMemberRemoved(team, removed.getId());
+            return team; // o removed, in base alla tua scelta
+        } 
 
-        }
-        return  result;
     }
         
     /**

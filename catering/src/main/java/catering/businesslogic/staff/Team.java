@@ -78,25 +78,26 @@ public class Team {
     /**
      * Rimuove un membro dal team: in memoria e nella tabella di join.
      */
-    public boolean removeMember(Integer memberId) {
-        Iterator<StaffMember> it = members.iterator();
-        while (it.hasNext()) {
-            StaffMember sm = it.next();
-            if (sm.getId().equals(memberId)) {
-                it.remove();
-                if (id != null) {
-                    String deleteLink = "DELETE FROM Team_StaffMember "
-                                      + "WHERE team_id = ? AND staff_member_id = ?";
-                    PersistenceManager.executeUpdate(deleteLink, id, memberId);
-                    LOGGER.info("Rimosso dal DB staffMember_id=" + memberId);
-                }
-                LOGGER.info("Rimosso in memoria staffMember_id=" + memberId);
-                return true;
+    public StaffMember removeMemberById(Integer memberId) {
+    Iterator<StaffMember> it = members.iterator();
+    while (it.hasNext()) {
+        StaffMember sm = it.next();
+        if (sm.getId().equals(memberId)) {
+            it.remove();
+            if (id != null) {
+                String deleteLink = "DELETE FROM Team_StaffMember "
+                                  + "WHERE team_id = ? AND staff_member_id = ?";
+                PersistenceManager.executeUpdate(deleteLink, id, memberId);
+                LOGGER.info("Rimosso dal DB staffMember_id=" + memberId);
             }
+            LOGGER.info("Rimosso in memoria staffMember_id=" + memberId);
+            return sm;
         }
-        LOGGER.warning("Impossibile rimuovere: staffMember_id=" + memberId + " non presente.");
-        return false;
     }
+    LOGGER.warning("Impossibile rimuovere: staffMember_id=" + memberId + " non presente.");
+    return null;
+    }
+
 
 
     public void setId(int i) {
