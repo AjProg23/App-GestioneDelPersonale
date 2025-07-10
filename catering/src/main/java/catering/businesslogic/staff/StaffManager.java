@@ -1,6 +1,7 @@
 package catering.businesslogic.staff;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -118,7 +119,6 @@ public class StaffManager {
         sm.setPermanente(true);
         this.setCurrentStaffMember(sm);
         this.notifyStaffMemberPermanentJob(sm);
-        sm.updateStaffMember();
         return sm;
         } catch (Exception exception) {
             LOGGER.log(Level.SEVERE, "Failed to register as permanent for the staff member" + sm.getNominativo()+".  Errore:"+exception);
@@ -166,12 +166,13 @@ public class StaffManager {
 
         // Check if team is being modified
         if (team.isBeingModified()) {
-        throw new UseCaseLogicException("Team is currently being modified. Cannot remove members.");
+            throw new ConcurrentModificationException("Team is currently being modified. Cannot remove members.");
         }
         
         Boolean result=team.removeMember(idStaffMember);
         if(result){
             notifyMemberRemoved(team,idStaffMember);
+
         }
         return  result;
     }
