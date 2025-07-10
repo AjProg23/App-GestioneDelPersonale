@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------
+Test set: catering.CreateSummarySchemeTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.458 s <<< FAILURE! -- in catering.CreateSummarySchemeTest
+catering.CreateSummarySchemeTest.testLoadSummaryScheme_Success -- Time elapsed: 0.020 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: SummaryScheme should be loaded from DB ==> expected: not <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertNotNull.failNull(AssertNotNull.java:49)
+	at org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:35)
+	at org.junit.jupiter.api.Assertions.assertNotNull(Assertions.java:312)
+	at catering.CreateSummarySchemeTest.testLoadSummaryScheme_Success(CreateSummarySchemeTest.java:61)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+catering.CreateSummarySchemeTest.testCreateSummaryScheme_NoEventSelected_Throws -- Time elapsed: 0.013 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "catering.businesslogic.event.EventManager.setSelectedEvent(catering.businesslogic.event.Event)" because "catering.CreateSummarySchemeTest.eventManager" is null
+	at catering.CreateSummarySchemeTest.testCreateSummaryScheme_NoEventSelected_Throws(CreateSummarySchemeTest.java:79)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+catering.CreateSummarySchemeTest.testCreateSummaryScheme_NonOrganizer_Throws -- Time elapsed: 0.016 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "catering.businesslogic.event.EventManager.setSelectedEvent(catering.businesslogic.event.Event)" because "catering.CreateSummarySchemeTest.eventManager" is null
+	at catering.CreateSummarySchemeTest.testCreateSummaryScheme_NonOrganizer_Throws(CreateSummarySchemeTest.java:92)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

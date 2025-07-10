@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.staff.Team;
 import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
@@ -272,4 +273,9 @@ public class Event {
     public void setSummaryScheme(SummaryScheme summaryScheme) {
         this.summaryScheme = summaryScheme;
     }
+
+    public void loadSummarySchemes() throws UseCaseLogicException {
+    this.summaryScheme = SummaryScheme.loadByEventId(this.id);
+}
+
 }

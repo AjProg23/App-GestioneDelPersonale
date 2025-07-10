@@ -236,7 +236,7 @@ public class EventManager {
      * @param clientRequest                     the specific request from the client
      * @throws UseCaseLogicException            if no event is selected
      */
-    public SummaryScheme creatSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
+    public SummaryScheme createSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
         User u=CatERing.getInstance().getUserManager().getCurrentUser();
         Event currEvent= this.selectedEvent;
         if (!u.isOrganizer()) {

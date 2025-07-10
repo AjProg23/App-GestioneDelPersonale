@@ -1141,7 +1141,7 @@ INSERT INTO Services (
 );
 
 
-
+--AutoIncremented so they start from nr. 1 ++
 -- SummaryScheme 1: Wedding event
 INSERT INTO SummaryScheme (nr_of_staff_members_required, transportation_needs, type_of_service, client_request)
 VALUES (8, 'Shuttle bus from Porta Nuova Turin station to the place of destination', 'Wedding catering', 'Vegetarian menu required, gluten-free options');

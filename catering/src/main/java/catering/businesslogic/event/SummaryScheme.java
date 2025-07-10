@@ -1,7 +1,12 @@
 package catering.businesslogic.event;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import catering.businesslogic.UseCaseLogicException;
 import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
@@ -68,6 +73,42 @@ public class SummaryScheme {
     public int getId() {
         return id;
     }
+
+    public static SummaryScheme loadByEventId(int eventId) throws UseCaseLogicException {
+    SummaryScheme ss = null;
+
+    String sql = "SELECT id, nr_of_staff_members_required, transportation_needs, type_of_service, client_request FROM SummaryScheme WHERE event_id = ? LIMIT 1";
+
+    try (Connection conn = PersistenceManager.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        
+        ps.setInt(1, eventId);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                int nrStaff = rs.getInt("nr_of_staff_members_required");
+                String transport = rs.getString("transportation_needs");
+                String typeOfService = rs.getString("type_of_service");
+                String clientRequest = rs.getString("client_request");
+
+                ss = new SummaryScheme(nrStaff, transport, typeOfService, clientRequest);
+                ss.setId(id); // if you have an id setter
+            }
+        }
+
+    } catch (SQLException e) {
+        throw new UseCaseLogicException("Error loading summary scheme for event id " + eventId, e);
+    }
+
+    return ss;
+    }
+
+
+    private void setId(int id2) {
+        this.id = id2;
+    }
+
 
     
 }
