@@ -230,9 +230,9 @@ public class StaffManager {
      * @param t           the them selected
      * @param sm          The staff member removed
      */
-    public void notifyMemberRemoved(Team t,Integer sm){
+    public void notifyMemberRemoved(Team t,Integer id){
         for (StaffEventReceiver ser : this.staffEventReceivers) {
-            ser.updateMemberRemoved(t,sm);
+            ser.updateMemberRemoved(t,id);
         }
     }
 
