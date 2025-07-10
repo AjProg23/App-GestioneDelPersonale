@@ -24,6 +24,7 @@ public class CreateSummarySchemeTest {
     private static Event testEvent;
     private static User organizer;
     private static User nonOrganizer;
+    private static SummaryScheme testSummaryScheme;
 
     @BeforeAll
     static void init() throws UseCaseLogicException {
@@ -41,26 +42,23 @@ public class CreateSummarySchemeTest {
         assertNotNull(nonOrganizer, "Non-organizer user should be loaded");
         assertFalse(nonOrganizer.isOrganizer(), "User should not be an organizer");
 
-        testEvent = Event.loadByName("Smith Wedding"); 
+        testEvent = Event.loadByName("Smith Wedding"); //id == 1 tested
         assertNotNull(testEvent, "Event should be loaded");
-        assertNotNull(testEvent.getTeam(), "Event team should be loaded");
 
-        testEvent.getSummaryScheme();
+        testSummaryScheme = SummaryScheme.loadByEventId(testEvent.getId()); 
+        assertNotNull(testSummaryScheme, "SummaryScheme should be loaded"); //tested, loads smith wedding correctly
 
     }
 
     @Test
     @Order(1)
     void testLoadSummaryScheme_Success() throws UseCaseLogicException {
-        // Login as organizer to simulate permission
+         // Login come organizer
         app.getUserManager().fakeLogin(organizer.getUserName());
 
-        // Ensure the event and its summary scheme are loaded in @BeforeEach setup
-        assertNotNull(testEvent, "Test event should be loaded");
         SummaryScheme ss = testEvent.getSummaryScheme();
         assertNotNull(ss, "SummaryScheme should be loaded from DB");
 
-        // Check fields match what you expect from the DB insert
         assertEquals(8, ss.getNrOfStaffMembersRequired(), "Staff required should match");
         assertEquals("Shuttle bus from Porta Nuova Turin station to the place of destination", 
                     ss.getTransportationNeeds(), "Transportation needs should match");
@@ -70,6 +68,7 @@ public class CreateSummarySchemeTest {
 
         LOGGER.info("Loaded SummaryScheme: " + ss);
     }
+
 
 
 

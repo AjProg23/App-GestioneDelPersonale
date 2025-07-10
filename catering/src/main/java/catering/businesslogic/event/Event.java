@@ -266,16 +266,16 @@ public class Event {
         this.team = team;
     }
 
-    public SummaryScheme getSummaryScheme() {
+    public SummaryScheme getSummaryScheme() throws UseCaseLogicException {
+    if (summaryScheme == null) {
+        summaryScheme = SummaryScheme.loadByEventId(this.id);
+    }
         return summaryScheme;
     }
+
 
     public void setSummaryScheme(SummaryScheme summaryScheme) {
         this.summaryScheme = summaryScheme;
     }
-
-    public void loadSummarySchemes() throws UseCaseLogicException {
-    this.summaryScheme = SummaryScheme.loadByEventId(this.id);
-}
 
 }

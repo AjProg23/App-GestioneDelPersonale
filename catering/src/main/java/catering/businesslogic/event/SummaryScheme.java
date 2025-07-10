@@ -77,7 +77,7 @@ public class SummaryScheme {
     public static SummaryScheme loadByEventId(int eventId) throws UseCaseLogicException {
     SummaryScheme ss = null;
 
-    String sql = "SELECT id, nr_of_staff_members_required, transportation_needs, type_of_service, client_request FROM SummaryScheme WHERE event_id = ? LIMIT 1";
+    String sql = "SELECT id, nr_of_staff_members_required, transportation_needs, type_of_service, client_request FROM SummaryScheme WHERE id = ? LIMIT 1";
 
     try (Connection conn = PersistenceManager.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
