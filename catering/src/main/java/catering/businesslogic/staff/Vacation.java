@@ -10,11 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import catering.persistence.PersistenceManager;
+import catering.util.LogManager;
 
 public class Vacation {
-   
+    private static final Logger LOGGER = LogManager.getLogger(StaffManager.class);
+
     public int id;
     public Date startDate;
     public Date endDate;
@@ -81,13 +84,9 @@ public class Vacation {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String startDateStr = rs.getString("start_date");
-                String endDateStr = rs.getString("end_date");
-
-                Date startDate = Date.valueOf(startDateStr);
-                Date endDate = Date.valueOf(endDateStr);
-
-                Boolean approved = false;  // default se la colonna non esiste
+                Date startDate = rs.getDate("start_date");
+                Date endDate = rs.getDate("end_date");
+                Boolean approved = false;  // valore di default
 
                 Vacation vac = new Vacation(approved, endDate, id, startDate);
                 vacations.add(vac);
@@ -99,7 +98,25 @@ public class Vacation {
     }
 
     return vacations;
-}
+ }
 
+    public void updateAcceptedVacationRequest() {
+        if (id == 0) {
+            LOGGER.warning("updateAcceptedVacationRequest: id non valorizzato (id = 0)");
+            return;
+        }
+
+        String updateSql = "UPDATE Vacation "
+                        + "SET approved = ?, start_date = ?, end_date = ? "
+                        + "WHERE id = ?";
+
+        PersistenceManager.executeUpdate(updateSql,
+                                        approved,
+                                        startDate,
+                                        endDate,
+                                        id);
+
+        LOGGER.info("Vacation aggiornata: ID=" + id);
+    }
 
 }

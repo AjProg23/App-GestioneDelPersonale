@@ -26,29 +26,21 @@ public class StaffManager {
     }
     
 
-    /**
-     * Create a Staff member
-     * 
-     * @param id          The identifier for the member
-     * @param nominativo               The name of the staff member
-     * @param features                     
-     * @param featuresValue                     
-     * @throws UseCaseLogicException            if no event is selected
-     */
-    public StaffMember createStaffMember(Integer id, String nominativo, ArrayList<String> ruoli, Boolean permanente) throws UseCaseLogicException{
-        try {
-        User user = CatERing.getInstance().getUserManager().getCurrentUser();
-        if(!user.isOrganizer()){
-            throw new UseCaseLogicException("L'utente " + user.getUserName() + " non è un organizzatore. Creazione evento negata.");
+    public Vacation acceptVacationRequest(Vacation v)throws UseCaseLogicException{
+        User u=CatERing.getInstance().getUserManager().getCurrentUser();
+        if (!u.isOrganizer()) {
+            throw new UseCaseLogicException("The User is not an organizer you can't accept the vacation request of the staff member");
         }
-        LOGGER.info("Creating new staff member");
-        StaffMember sm=new StaffMember(id, nominativo, ruoli,permanente);
-        this.setCurrentStaffMember(sm);
-        this.notifyStaffMemberCreated(sm);
-        sm.saveNewStaffMember();
-        return sm;
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Failed to create staff memeber '" + nominativo+"  Errore:"+e);
+        if(v==null){
+            throw new UseCaseLogicException("Staff member not selected");
+        }
+        try {
+        LOGGER.info("Accepting Vacation Request "+v.getId());
+        v.setApproved(true);
+        this.notifyAcceptedVacationRequest(v);
+        v.updateAcceptedVacationRequest();
+        return v;
+        } catch (Exception exception) {
             return null;
         }
     }
@@ -149,7 +141,7 @@ public class StaffManager {
         if(sm==null){
             throw new UseCaseLogicException("Staff member not selected");
         }
-        List<Vacation> vacations=currentStaffMember.getVacations();
+        List<Vacation> vacations=sm.getVacations();
         return vacations;
     }
 
@@ -184,19 +176,6 @@ public class StaffManager {
         return  result;
     }
         
-
-    /**
-     * Notify the StaffEventReceiver that a StaffMember had been created
-     * 
-     * @param sm          The staff member created
-     */
-    private void notifyStaffMemberCreated(StaffMember sm) {
-        for (StaffEventReceiver ser : this.staffEventReceivers) {
-            ser.updateStaffMemberCreated(sm);
-        }
-    }
-
-
     /**
      * Notify the StaffEventReceiver that a StaffMember had been added to the team of the currentEvent
      * 
@@ -216,6 +195,17 @@ public class StaffManager {
     private void notifyStaffMemberPermanentJob(StaffMember sm){
         for (StaffEventReceiver ser : this.staffEventReceivers) {
             ser.UpdateStaffMemberPermanentJob(sm);
+        }
+    }
+
+     /**
+     * Notify the StaffEventReceiver that a Vacation Request has been accepted
+     * 
+     * @param v          the vacation request that has been accepted
+     */
+    private void notifyAcceptedVacationRequest(Vacation v){
+        for (StaffEventReceiver ser : this.staffEventReceivers) {
+            ser.UpdateAcceptedVacationRequest(v);
         }
     }
 
