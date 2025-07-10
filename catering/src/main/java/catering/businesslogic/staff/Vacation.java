@@ -98,7 +98,7 @@ public class Vacation {
     }
 
     return vacations;
- }
+    }
 
     public void updateAcceptedVacationRequest() {
         if (id == 0) {

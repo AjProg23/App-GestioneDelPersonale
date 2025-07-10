@@ -1,4 +1,61 @@
 -------------------------------------------------------------------------------
 Test set: catering.businesslogic.kitchen.GetVacationRequestTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.443 s -- in catering.businesslogic.kitchen.GetVacationRequestTest
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.547 s <<< FAILURE! -- in catering.businesslogic.kitchen.GetVacationRequestTest
+catering.businesslogic.kitchen.GetVacationRequestTest.testGetVacation_Success -- Time elapsed: 0.025 s <<< ERROR!
+java.lang.RuntimeException: Error loading vacations for staff member ID 2
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:97)
+	at catering.businesslogic.staff.StaffMember.loadVacations(StaffMember.java:161)
+	at catering.businesslogic.kitchen.GetVacationRequestTest.setup(GetVacationRequestTest.java:41)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.sql.SQLException: Error parsing time stamp
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:280)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:295)
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:87)
+	... 5 more
+Caused by: java.text.ParseException: Unparseable date: "2023-12-20" does not match (\p{Nd}++)\Q-\E(\p{Nd}++)\Q-\E(\p{Nd}++)\Q \E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q.\E(\p{Nd}++)
+	at org.sqlite.date.FastDateParser.parse(FastDateParser.java:311)
+	at org.sqlite.date.FastDateFormat.parse(FastDateFormat.java:449)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:278)
+	... 7 more
+
+catering.businesslogic.kitchen.GetVacationRequestTest.testGetVacation_StaffMemberNull_Throws -- Time elapsed: 0.017 s <<< ERROR!
+java.lang.RuntimeException: Error loading vacations for staff member ID 2
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:97)
+	at catering.businesslogic.staff.StaffMember.loadVacations(StaffMember.java:161)
+	at catering.businesslogic.kitchen.GetVacationRequestTest.setup(GetVacationRequestTest.java:41)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.sql.SQLException: Error parsing time stamp
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:280)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:295)
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:87)
+	... 5 more
+Caused by: java.text.ParseException: Unparseable date: "2023-12-20" does not match (\p{Nd}++)\Q-\E(\p{Nd}++)\Q-\E(\p{Nd}++)\Q \E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q.\E(\p{Nd}++)
+	at org.sqlite.date.FastDateParser.parse(FastDateParser.java:311)
+	at org.sqlite.date.FastDateFormat.parse(FastDateFormat.java:449)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:278)
+	... 7 more
+
+catering.businesslogic.kitchen.GetVacationRequestTest.testGetVacation_UserNotOrganizer_Throws -- Time elapsed: 0.017 s <<< ERROR!
+java.lang.RuntimeException: Error loading vacations for staff member ID 2
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:97)
+	at catering.businesslogic.staff.StaffMember.loadVacations(StaffMember.java:161)
+	at catering.businesslogic.kitchen.GetVacationRequestTest.setup(GetVacationRequestTest.java:41)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.sql.SQLException: Error parsing time stamp
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:280)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:295)
+	at catering.businesslogic.staff.Vacation.loadByStaffMemberId(Vacation.java:87)
+	... 5 more
+Caused by: java.text.ParseException: Unparseable date: "2023-12-20" does not match (\p{Nd}++)\Q-\E(\p{Nd}++)\Q-\E(\p{Nd}++)\Q \E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q.\E(\p{Nd}++)
+	at org.sqlite.date.FastDateParser.parse(FastDateParser.java:311)
+	at org.sqlite.date.FastDateFormat.parse(FastDateFormat.java:449)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:278)
+	... 7 more
+

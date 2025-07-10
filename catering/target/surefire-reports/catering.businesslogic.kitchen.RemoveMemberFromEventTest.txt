@@ -1,4 +1,20 @@
 -------------------------------------------------------------------------------
 Test set: catering.businesslogic.kitchen.RemoveMemberFromEventTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.445 s -- in catering.businesslogic.kitchen.RemoveMemberFromEventTest
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.520 s <<< FAILURE! -- in catering.businesslogic.kitchen.RemoveMemberFromEventTest
+catering.businesslogic.kitchen.RemoveMemberFromEventTest.testRemoveMember_TeamBeingModified_Throws -- Time elapsed: 0.021 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <catering.businesslogic.UseCaseLogicException> but was: <java.util.ConcurrentModificationException>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at catering.businesslogic.kitchen.RemoveMemberFromEventTest.testRemoveMember_TeamBeingModified_Throws(RemoveMemberFromEventTest.java:132)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.util.ConcurrentModificationException: Team is currently being modified. Cannot remove members.
+	at catering.businesslogic.staff.StaffManager.RemoveMemberFromEvent(StaffManager.java:169)
+	at catering.businesslogic.kitchen.RemoveMemberFromEventTest.lambda$5(RemoveMemberFromEventTest.java:133)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+
