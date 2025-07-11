@@ -178,12 +178,6 @@ public class EventManager {
         }
     }
     
-    public Event createEvent(User u) throws UseCaseLogicException {
-        System.out.println("L'utente è un organizzatore, può creare l'evento.");
-        ArrayList<StaffMember> staffMembers= new ArrayList<>();
-        Team t= CatERing.getInstance().getStaffManager().createTeam(staffMembers);
-        return this.createEvent("nome", null, null, u, t);
-    }
 
     public void selectEvent(Event event) {
         LOGGER.info("Selecting event '" + event.getName() + "' (ID: " + event.getId() + ")");
