@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.682" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.74" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire15633994856987008490\surefirebooter-20250710170618185_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire15633994856987008490 2025-07-10T17-06-18_002-jvmRun1 surefire-20250710170618185_1tmp surefire_0-20250710170618185_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\ahed_\AppData\Local\Temp\surefire1653535445162039313\surefirebooter-20250711154232294_3.jar C:\Users\ahed_\AppData\Local\Temp\surefire1653535445162039313 2025-07-11T15-42-32_099-jvmRun1 surefire-20250711154232294_1tmp surefire_0-20250711154232294_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="c:\Users\ahed_\Desktop\SAS\catering\target\test-classes;c:\Users\ahed_\Desktop\SAS\catering\target\classes;C:\Users\ahed_\.m2\repository\org\xerial\sqlite-jdbc\3.49.1.0\sqlite-jdbc-3.49.1.0.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\ahed_\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ahed_\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\ahed_\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire15633994856987008490\surefirebooter-20250710170618185_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ahed_\AppData\Local\Temp\surefire1653535445162039313\surefirebooter-20250711154232294_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -58,25 +58,25 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testAcceptVacationRequest_Success" classname="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.044">
-    <system-err><![CDATA[2025-07-10 17:06:19.416 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
-2025-07-10 17:06:19.422 [INFO] catering.businesslogic.shift.Shift: Loading all shifts from database
-2025-07-10 17:06:19.442 [INFO] catering.businesslogic.shift.Shift: Loaded 4 shifts
-2025-07-10 17:06:19.470 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-10 17:06:19.473 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
-2025-07-10 17:06:19.476 [INFO] catering.businesslogic.staff.StaffManager: Accepting Vacation Request 2
-2025-07-10 17:06:19.483 [INFO] catering.businesslogic.staff.StaffManager: Vacation aggiornata: ID=2
-2025-07-10 17:06:19.484 [INFO] catering.businesslogic.kitchen.AcceptVacationRequestTest: Vacanze trovate per Luigi: 1
+  <testcase name="testAcceptVacationRequest_Success" classname="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.052">
+    <system-err><![CDATA[2025-07-11 15:42:33.500 [INFO] catering.persistence.PersistenceManager: Database initialized successfully from database/catering_init_sqlite.sql
+2025-07-11 15:42:33.508 [INFO] catering.businesslogic.shift.Shift: Loading all shifts from database
+2025-07-11 15:42:33.539 [INFO] catering.businesslogic.shift.Shift: Loaded 4 shifts
+2025-07-11 15:42:33.564 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-11 15:42:33.566 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+2025-07-11 15:42:33.569 [INFO] catering.businesslogic.staff.StaffManager: Accepting Vacation Request 2
+2025-07-11 15:42:33.576 [INFO] catering.businesslogic.staff.StaffManager: Vacation aggiornata: ID=2
+2025-07-11 15:42:33.577 [INFO] catering.businesslogic.kitchen.AcceptVacationRequestTest: Vacanze trovate per Luigi: 1
 ]]></system-err>
   </testcase>
-  <testcase name="testAcceptVacationRequest_VacationNull_Throws" classname="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.021">
-    <system-err><![CDATA[2025-07-10 17:06:19.509 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
-2025-07-10 17:06:19.512 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
+  <testcase name="testAcceptVacationRequest_VacationNull_Throws" classname="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.019">
+    <system-err><![CDATA[2025-07-11 15:42:33.614 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Francesca
+2025-07-11 15:42:33.616 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Francesca
 ]]></system-err>
   </testcase>
-  <testcase name="testGetVacationRequest_NonOrganizer_Throws" classname="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.015">
-    <system-err><![CDATA[2025-07-10 17:06:19.527 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
-2025-07-10 17:06:19.530 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
+  <testcase name="testGetVacationRequest_NonOrganizer_Throws" classname="catering.businesslogic.kitchen.AcceptVacationRequestTest" time="0.012">
+    <system-err><![CDATA[2025-07-11 15:42:33.629 [INFO] catering.businesslogic.user.UserManager: Attempting login for user: Antonio
+2025-07-11 15:42:33.631 [INFO] catering.businesslogic.user.UserManager: User successfully logged in: Antonio
 ]]></system-err>
   </testcase>
 </testsuite>

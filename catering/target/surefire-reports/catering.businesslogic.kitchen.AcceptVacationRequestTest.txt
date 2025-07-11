@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: catering.businesslogic.kitchen.AcceptVacationRequestTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.682 s -- in catering.businesslogic.kitchen.AcceptVacationRequestTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.740 s -- in catering.businesslogic.kitchen.AcceptVacationRequestTest
