@@ -1,9 +1,9 @@
-catering\persistence\PersistenceManager.class
-catering\persistence\KitchenTaskPersistence.class
+catering\util\LogManager$CustomFormatter.class
+catering\persistence\ResultHandler.class
 catering\businesslogic\event\EventManager.class
+catering\businesslogic\CatERing.class
+catering\persistence\PersistenceManager.class
+catering\persistence\MenuPersistence.class
+catering\persistence\KitchenTaskPersistence.class
 catering\util\LogManager.class
 catering\persistence\EventPersistence.class
-catering\persistence\MenuPersistence.class
-catering\util\LogManager$CustomFormatter.class
-catering\businesslogic\CatERing.class
-catering\persistence\ResultHandler.class

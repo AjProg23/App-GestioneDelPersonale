@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.menu.Menu;
 import catering.businesslogic.staff.Team;
@@ -220,10 +219,7 @@ public class EventManager {
         }
     }
 
-    /**
-     * This method can only be used by users with the "organizer" role. It requires that an event
-    * is currently selected in the EventManager. The created summary scheme includes
-    * information about staff requirements, transportation, service type, and client-specific requests.
+    /** Create a summary scheme for an event
      * 
      * @param nrOfStaffMembersRequired          The number of staff reqwuired for the event 
      * @param transportationNeeds               The Trasportqation nedded fot the event
@@ -232,11 +228,7 @@ public class EventManager {
      * @throws UseCaseLogicException            if no event is selected
      */
     public SummaryScheme createSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
-        User u=CatERing.getInstance().getUserManager().getCurrentUser();
         Event currEvent= this.selectedEvent;
-        if (!u.isOrganizer()) {
-            throw new UseCaseLogicException("The User is not an organizer you can't accept the vacation request of the staff member");
-        }
         if(currEvent==null){
             throw new UseCaseLogicException("Nessun evento selezionato di cui creare il summary scheme");
         }
@@ -276,28 +268,6 @@ public class EventManager {
                 this.selectedEvent = event;
             }
         }
-    }
-
-    
-     /**
-     * add summaryScheme for the Event
-     * 
-     * @param nrOfStaffMembersRequired          number of staff required for the event
-     * @param transportationNeeds               any trasportation nedded for the event
-     * @param typeOfService                    type of the service for the event
-     * @param clientRequest                    any request from the client
-     */
-    public SummaryScheme addSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest){
-        SummaryScheme summaryScheme= new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
-        currentEvent.setSummaryScheme(summaryScheme);
-        summaryScheme.saveNewSummaryScheme();
-        currentEvent.updateEvent();
-        return summaryScheme;
-    }
-
-    public SummaryScheme addSummaryScheme(){
-        SummaryScheme summaryScheme=this.addSummaryScheme(15, null, "bartender", null);
-        return summaryScheme;
     }
 
 
@@ -430,19 +400,7 @@ public class EventManager {
             return false;
         }
     }
-    /**
-     * gives the Staff of the current event 
-     * 
-     * @throws UseCaseLogicException if no event is selected
-     */
-    public Team getStaffAvailability()throws UseCaseLogicException{
-        Event currEvent= getCurrentEvent();
-        if(currEvent==null){
-            throw new UseCaseLogicException("Nessun evento corrente di cui creare il summary scheme");
-        }
-        Team t= currEvent.getTeam();
-        return t;
-    }
+    
 
     /**
      * Assigns a menu to the current service

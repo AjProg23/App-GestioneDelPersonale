@@ -31,6 +31,11 @@ public class StaffMember {
         this.vacations=new ArrayList<>();
     }
 
+    public StaffMember() {
+    }
+
+
+
     /**
      * Add a new Vacation request for this staffMember
      * @param  v                    the vacation request
@@ -91,6 +96,10 @@ public class StaffMember {
 
     public Integer getId() {
         return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNominativo() {
@@ -186,5 +195,7 @@ public class StaffMember {
 
     return members;
  }
+
+    
 
 }

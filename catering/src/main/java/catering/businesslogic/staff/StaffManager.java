@@ -2,6 +2,7 @@ package catering.businesslogic.staff;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.event.Event;
 import catering.businesslogic.user.User;
+import catering.persistence.PersistenceManager;
 import catering.util.LogManager;
 
 
@@ -27,6 +29,13 @@ public class StaffManager {
     }
     
 
+    /**
+     * Accept a vacation request from a staff member
+     * 
+     * @param v          the vacation the staff member is asking for                
+     * @throws UseCaseLogicException            if the User is not an organizer
+     * @throws UseCaseLogicException            if the vacation required doesn't exist
+     */
     public Vacation acceptVacationRequest(Vacation v)throws UseCaseLogicException{
         User u=CatERing.getInstance().getUserManager().getCurrentUser();
         if (!u.isOrganizer()) {
@@ -178,6 +187,37 @@ public class StaffManager {
         }
 
     }
+
+
+
+    /**
+     * gives events dates when the staff member il busy 
+     * 
+     * @param staffMemberId the staff memebr id of the staff member selected
+     */
+   
+    public static List<Date[]> checkStaffAviability(int staffMemberId) {
+        List<Date[]> impegni = new ArrayList<>();
+
+        String sql =
+            "SELECT E.date_start, E.date_end " +
+            "FROM Events E " +
+            "JOIN Team_StaffMember TSM ON E.team_id = TSM.team_id " +
+            "WHERE TSM.staff_member_id = ? " +
+            "ORDER BY E.date_start";
+
+        PersistenceManager.executeQuery(sql, rs -> {
+            Date start = rs.getDate("date_start");
+            Date end   = rs.getDate("date_end");
+            impegni.add(new Date[] { start, end });
+        }, staffMemberId);
+
+        return impegni;
+    }
+    
+        
+        
+
         
     /**
      * Notify the StaffEventReceiver that a StaffMember had been added to the team of the currentEvent
