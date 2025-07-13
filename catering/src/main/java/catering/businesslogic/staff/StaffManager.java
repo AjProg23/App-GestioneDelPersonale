@@ -214,6 +214,23 @@ public class StaffManager {
 
         return impegni;
     }
+
+
+     /**
+     * Adding notes to the staff member 
+     * 
+     * @param staffMember           the staff member to add the note
+     * @param note                  the text to add as note for the staffMember
+     * @throws UseCaseLogicException            if there is not a consistent value for note or staffMember
+     */
+    public void addNoteToStaffMember(String note, StaffMember staffMember) throws UseCaseLogicException{
+        if (note==null||staffMember==null){
+            throw new UseCaseLogicException("the note or the staff member is not a value");
+        }
+        staffMember.setNote(note);
+        staffMember.updateStaffMember();
+        notifyStaffMemberNoteAdded(staffMember);
+    }
     
         
         
@@ -238,6 +255,13 @@ public class StaffManager {
     private void notifyStaffMemberPermanentJob(StaffMember sm){
         for (StaffEventReceiver ser : this.staffEventReceivers) {
             ser.UpdateStaffMemberPermanentJob(sm);
+        }
+    }
+
+
+    private void notifyStaffMemberNoteAdded(StaffMember sm){
+        for (StaffEventReceiver ser : this.staffEventReceivers) {
+            ser.updateStaffMemberAddedNote(sm);
         }
     }
 

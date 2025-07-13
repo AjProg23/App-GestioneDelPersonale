@@ -16,6 +16,46 @@ import catering.persistence.ResultHandler;
 
 public class Menu {
 
+
+    private int id;
+
+    private String title;
+
+    private boolean published;
+
+    private boolean inUse;
+
+    private HashMap<String, Boolean> features;
+
+    private ArrayList<MenuItem> freeItems;
+
+    private ArrayList<Section> sections;
+
+    private User owner;
+
+    public Menu(User owner, String title, String[] menuFeatures) {
+        this.id = 0;
+        this.title = title;
+        this.owner = owner;
+        this.published = false;
+        this.inUse = false;
+        this.features = new HashMap<String, Boolean>();
+        this.sections = new ArrayList<Section>();
+        this.freeItems = new ArrayList<MenuItem>();
+
+        for (String feature : menuFeatures) {
+            this.features.put(feature, false);
+        }
+    }
+
+    public Menu(User owner, String title) {
+        this(owner, title, DEFAULT_FEATURES);
+    }
+
+    private Menu() {
+        this(null, null);
+    }
+
     // Feature constants
     public static final String FEATURE_NEEDS_COOK = "needsCook";
     public static final String FEATURE_FINGER_FOOD = "fingerFood";
@@ -219,115 +259,9 @@ public class Menu {
         }, m.id);
     }
 
-    private int id;
+    
 
-    private String title;
-
-    private boolean published;
-
-    private boolean inUse;
-
-    private HashMap<String, Boolean> features;
-
-    private ArrayList<MenuItem> freeItems;
-
-    private ArrayList<Section> sections;
-
-    private User owner;
-
-    public Menu(User owner, String title, String[] menuFeatures) {
-        this.id = 0;
-        this.title = title;
-        this.owner = owner;
-        this.published = false;
-        this.inUse = false;
-        this.features = new HashMap<String, Boolean>();
-        this.sections = new ArrayList<Section>();
-        this.freeItems = new ArrayList<MenuItem>();
-
-        for (String feature : menuFeatures) {
-            this.features.put(feature, false);
-        }
-    }
-
-    public Menu(User owner, String title) {
-        this(owner, title, DEFAULT_FEATURES);
-    }
-
-    private Menu() {
-        this(null, null);
-    }
-
-    public Section addSection(String name) {
-        Section sec = new Section(name);
-        this.sections.add(sec);
-        return sec;
-    }
-
-    public Section getSection(int position) {
-        if (position < 0 || position >= sections.size()) {
-            throw new IndexOutOfBoundsException("Invalid section position");
-        }
-        return this.sections.get(position);
-    }
-
-    public Section getSectionById(int id) {
-        for (Section sec : sections) {
-            if (sec.getId() == id) {
-                return sec;
-            }
-        }
-        return null;
-    }
-
-    public Section getSection(String name) {
-        for (Section sec : sections) {
-            if (sec.getName().equals(name)) {
-                return sec;
-            }
-        }
-        return null;
-    }
-
-    public Section getSection(MenuItem mi) {
-        for (Section sec : sections) {
-            if (sec.getItemPosition(mi) >= 0) {
-                return sec;
-            }
-        }
-        if (freeItems.contains(mi)) {
-            return null;
-        }
-        throw new IllegalArgumentException("MenuItem not found in this menu");
-    }
-
-    public boolean hasSection(Section sec) {
-        return this.sections.contains(sec);
-    }
-
-    public int getSectionPosition(Section sec) {
-        return this.sections.indexOf(sec);
-    }
-
-    public ArrayList<Section> getSections() {
-        return this.sections;
-    }
-
-    public void moveSection(Section sec, int position) {
-        sections.remove(sec);
-        sections.add(position, sec);
-    }
-
-    public void removeSection(Section s, boolean deleteItems) {
-        if (!deleteItems) {
-            this.freeItems.addAll(s.getItems());
-        }
-        this.sections.remove(s);
-    }
-
-    public int getSectionCount() {
-        return sections.size();
-    }
+   
 
     public MenuItem addItem(Recipe recipe, Section sec, String desc) {
         MenuItem mi = new MenuItem(recipe, desc);
@@ -339,9 +273,7 @@ public class Menu {
         return mi;
     }
 
-    public ArrayList<MenuItem> getFreeItems() {
-        return this.freeItems;
-    }
+    
 
     public int getFreeItemPosition(MenuItem mi) {
         return freeItems.indexOf(mi);
@@ -659,5 +591,81 @@ public class Menu {
         }
         return null;
     }
+    
 
+
+     public Section addSection(String name) {
+        Section sec = new Section(name);
+        this.sections.add(sec);
+        return sec;
+    }
+
+    public Section getSection(int position) {
+        if (position < 0 || position >= sections.size()) {
+            throw new IndexOutOfBoundsException("Invalid section position");
+        }
+        return this.sections.get(position);
+    }
+
+    public Section getSectionById(int id) {
+        for (Section sec : sections) {
+            if (sec.getId() == id) {
+                return sec;
+            }
+        }
+        return null;
+    }
+
+    public Section getSection(String name) {
+        for (Section sec : sections) {
+            if (sec.getName().equals(name)) {
+                return sec;
+            }
+        }
+        return null;
+    }
+
+    public Section getSection(MenuItem mi) {
+        for (Section sec : sections) {
+            if (sec.getItemPosition(mi) >= 0) {
+                return sec;
+            }
+        }
+        if (freeItems.contains(mi)) {
+            return null;
+        }
+        throw new IllegalArgumentException("MenuItem not found in this menu");
+    }
+
+    public boolean hasSection(Section sec) {
+        return this.sections.contains(sec);
+    }
+
+    public int getSectionPosition(Section sec) {
+        return this.sections.indexOf(sec);
+    }
+
+    public ArrayList<Section> getSections() {
+        return this.sections;
+    }
+
+    public void moveSection(Section sec, int position) {
+        sections.remove(sec);
+        sections.add(position, sec);
+    }
+
+    public void removeSection(Section s, boolean deleteItems) {
+        if (!deleteItems) {
+            this.freeItems.addAll(s.getItems());
+        }
+        this.sections.remove(s);
+    }
+
+    public int getSectionCount() {
+        return sections.size();
+    }
+
+    public ArrayList<MenuItem> getFreeItems() {
+        return this.freeItems;
+    }
 }

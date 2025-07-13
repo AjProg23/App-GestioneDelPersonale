@@ -203,8 +203,8 @@ CREATE TABLE `StaffMember` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `nominativo` TEXT NOT NULL,
     `ruoli` TEXT,
-    `permanente` BOOLEAN
-    
+    `permanente` BOOLEAN,
+    `note` TEXT
 );
 
 CREATE TABLE
@@ -1156,8 +1156,8 @@ VALUES (5, 'None', 'Private party', 'Children-friendly staff, cake service at 16
 
 
 -- StaffMember 1: Permanent chef
-INSERT INTO StaffMember (nominativo, ruoli, permanente)
-VALUES ('Mario Rossi', 'Head Chef, Pasta Specialist', 1);
+INSERT INTO StaffMember (nominativo, ruoli, permanente,note)
+VALUES ('Mario Rossi', 'Head Chef, Pasta Specialist', 1, 'his pasta dishes are amazing');
 
 -- StaffMember 2: Temporary waiter
 INSERT INTO StaffMember (nominativo, ruoli, permanente)

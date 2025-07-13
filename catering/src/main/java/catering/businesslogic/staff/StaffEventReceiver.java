@@ -11,4 +11,5 @@ public interface StaffEventReceiver{
     public void updateTeamCreated(Team t);
     public void UpdateAcceptedVacationRequest(Vacation v);
     public void updateMemberRemoved(Team t, Integer smID);
+    public void updateStaffMemberAddedNote(StaffMember sm);
 }

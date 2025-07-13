@@ -146,12 +146,12 @@ public class MenuManager {
         this.notifySectionChangedName(s);
     }
 
-    public void moveSection(Section sec, int position) throws UseCaseLogicException {
-        if (currentMenu == null || currentMenu.getSectionPosition(sec) < 0)
+    public void moveSection(Section s, int position) throws UseCaseLogicException {
+        if (currentMenu == null || currentMenu.getSectionPosition(s) < 0)
             throw new UseCaseLogicException();
         if (position < 0 || position >= currentMenu.getSectionCount())
             throw new IllegalArgumentException();
-        this.currentMenu.moveSection(sec, position);
+        this.currentMenu.moveSection(s, position);
 
         this.notifySectionsRearranged();
     }

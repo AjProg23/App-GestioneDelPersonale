@@ -1,9 +1,18 @@
 package catering.businesslogic.kitchen;
 
-import static org.junit.jupiter.api.Assertions.*;
 import java.util.logging.Logger;
 
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
@@ -105,7 +114,7 @@ public class CreateSummarySchemeTest {
             eventManager.createSummaryScheme(2, "bus", "buffet", "vegan");
         });
 
-        assertEquals("The User is not an organizer you can't accept the vacation request of the staff member",
+        assertEquals("The User is not an organizer, you can't create a summary scheme",
                     thrown.getMessage());
     }
 

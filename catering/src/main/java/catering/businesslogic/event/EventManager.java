@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import catering.businesslogic.CatERing;
 import catering.businesslogic.UseCaseLogicException;
 import catering.businesslogic.menu.Menu;
 import catering.businesslogic.staff.Team;
@@ -229,6 +230,10 @@ public class EventManager {
      */
     public SummaryScheme createSummaryScheme(int nrOfStaffMembersRequired, String transportationNeeds, String typeOfService, String clientRequest) throws UseCaseLogicException{
         Event currEvent= this.selectedEvent;
+        User u=CatERing.getInstance().getUserManager().getCurrentUser();
+        if(!u.isOrganizer()){
+            throw new UseCaseLogicException("The User is not an organizer, you can't create a summary scheme");
+        }
         if(currEvent==null){
             throw new UseCaseLogicException("Nessun evento selezionato di cui creare il summary scheme");
         }
@@ -236,7 +241,7 @@ public class EventManager {
             LOGGER.info("Creating new summaryScheme for event:" + selectedEvent.getName() + "'");
         SummaryScheme ss=new SummaryScheme(nrOfStaffMembersRequired, transportationNeeds, typeOfService, clientRequest);
         ss.saveNewSummaryScheme();
-        selectedEvent.addSummaryScheme(ss);
+        currEvent.addSummaryScheme(ss);
         this.currentSummaryScheme=ss;
         notifySummarySchemeCreated(ss);
         return ss;
