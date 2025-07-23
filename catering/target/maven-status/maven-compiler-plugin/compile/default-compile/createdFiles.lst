@@ -4,6 +4,7 @@ catering\businesslogic\event\EventManager.class
 catering\businesslogic\CatERing.class
 catering\persistence\PersistenceManager.class
 catering\persistence\MenuPersistence.class
+catering\businesslogic\user\User$5.class
 catering\persistence\KitchenTaskPersistence.class
 catering\util\LogManager.class
 catering\persistence\EventPersistence.class
